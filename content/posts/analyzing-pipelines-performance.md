@@ -1,7 +1,7 @@
 ---
 title: "Analyzing Pipelines Performance"
 date: 2021-05-15T07:52:32-03:00
-draft: true
+draft: false
 tags: [scraping, scrapy, performance]
 ---
 
