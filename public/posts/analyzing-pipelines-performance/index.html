@@ -144,7 +144,37 @@
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker">docker build -t scrapy-bench-server -f docker/Dockerfile .<span class="err">
 </span></code></pre></div><p>and then run the container to host our locally version of the website.</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker">docker run --rm -ti --network<span class="o">=</span>host scrapy-bench-server<span class="err">
-</span></code></pre></div><p>Moving on in our setup we&rsquo;re going to add some network mapping in <code>/etc/hosts</code> file. There are 1000 records to add to that file and put those in manually way is out of the question. Therefore we wrote a python script to generate those texts for the required mapping to our benchmark. Thus with that done we just need copy and paste the content into <code>/etc/hosts</code> and that task will be done.</p>
+</span></code></pre></div><p>The usage of <code>scrapy-bench</code> consists of several options listed below. One of these is <strong>broadworm</strong> which uses 1000 copies of the site <a href="http://books.toscrape.com/index.html">Books to Scrape</a> which are dynamically generated using twisted.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Usage: scrapy-bench [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
+
+  A benchmark suite for Scrapy.
+
+Options:
+  --n-runs INTEGER  Take multiple readings for the benchmark.
+  --only_result     Display the results only.
+  --upload_result   Upload the results to local codespeed
+  --book_url TEXT   Use with bookworm command. The url to book.toscrape.com on
+                    your local machine
+
+  --vmprof          Profling benchmarkers with Vmprof and upload the result to
+                    the web
+
+  -s, --set TEXT    Settings to be passed to the Scrapy command. Use with the
+                    bookworm/broadworm commands.
+
+  --help            Show this message and exit.
+
+Commands:
+  bookworm         Spider to scrape locally hosted site
+  broadworm        Broad crawl spider to scrape locally hosted sites
+  cssbench         Micro-benchmark for extraction using css
+  csv              Visit URLs from a CSV file
+  itemloader       Item loader benchmarker
+  linkextractor    Micro-benchmark for LinkExtractor()
+  urlparseprofile  Urlparse benchmarker
+  xpathbench       Micro-benchmark for extraction using xpath
+
+</code></pre></div><p>Moving on in our setup we&rsquo;re going to add a network mapping in <code>/etc/hosts</code> file. This is a necessary step for our crawler identify all domains needed to run our benchmark. There are 1000 records to add to that file and put those in manually way is out of the question. Therefore we wrote a python script to generate those texts for the required mapping to our benchmark. Thus with that done we just need copy and paste the content into <code>/etc/hosts</code> and that task will be done.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./domain.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;127.0.0.1    domain{i}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
@@ -194,7 +224,7 @@ pip install --editable .
 <p>Thus to activate this extension in our code base we need to include the code below in the <code>settings.py</code> of our scrapy project.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">EXTENSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;broad.latencies.latencies.Latencies&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">}</span>
 <span class="n">LATENCIES_INTERVAL</span> <span class="o">=</span> <span class="mi">2</span>
-</code></pre></div><p>Moreover, we&rsquo;ll customize our spider (<code>BroadBenchSpider</code>) to persist the data from <code>Latencies</code> extension into a file for our posterior analysis.</p>
+</code></pre></div><p>Moreover, we&rsquo;ll customize our spider <a href="https://github.com/netoferraz/benchmark-mongodb-pipeline/blob/main/broad/broad/spiders/broadspider.py">BroadBenchSpider</a> to persist the data from <code>Latencies</code> extension into a file for our posterior analysis.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">logname</span> <span class="o">=</span> <span class="s1">&#39;sync-test.log&#39;</span>
 <span class="c1">#logname = &#39;async-test.log&#39;</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>

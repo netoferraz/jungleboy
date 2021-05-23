@@ -35,7 +35,41 @@ and then run the container to host our locally version of the website.
 docker run --rm -ti --network=host scrapy-bench-server
 ```
 
-Moving on in our setup we're going to add some network mapping in `/etc/hosts` file. There are 1000 records to add to that file and put those in manually way is out of the question. Therefore we wrote a python script to generate those texts for the required mapping to our benchmark. Thus with that done we just need copy and paste the content into `/etc/hosts` and that task will be done.
+The usage of `scrapy-bench` consists of several options listed below. One of these is **broadworm** which uses 1000 copies of the site [Books to Scrape](http://books.toscrape.com/index.html) which are dynamically generated using twisted.
+
+```
+Usage: scrapy-bench [OPTIONS] COMMAND1 [ARGS]... [COMMAND2 [ARGS]...]...
+
+  A benchmark suite for Scrapy.
+
+Options:
+  --n-runs INTEGER  Take multiple readings for the benchmark.
+  --only_result     Display the results only.
+  --upload_result   Upload the results to local codespeed
+  --book_url TEXT   Use with bookworm command. The url to book.toscrape.com on
+                    your local machine
+
+  --vmprof          Profling benchmarkers with Vmprof and upload the result to
+                    the web
+
+  -s, --set TEXT    Settings to be passed to the Scrapy command. Use with the
+                    bookworm/broadworm commands.
+
+  --help            Show this message and exit.
+
+Commands:
+  bookworm         Spider to scrape locally hosted site
+  broadworm        Broad crawl spider to scrape locally hosted sites
+  cssbench         Micro-benchmark for extraction using css
+  csv              Visit URLs from a CSV file
+  itemloader       Item loader benchmarker
+  linkextractor    Micro-benchmark for LinkExtractor()
+  urlparseprofile  Urlparse benchmarker
+  xpathbench       Micro-benchmark for extraction using xpath
+
+```
+
+Moving on in our setup we're going to add a network mapping in `/etc/hosts` file. This is a necessary step for our crawler identify all domains needed to run our benchmark. There are 1000 records to add to that file and put those in manually way is out of the question. Therefore we wrote a python script to generate those texts for the required mapping to our benchmark. Thus with that done we just need copy and paste the content into `/etc/hosts` and that task will be done.
 
 ```python
 with open("./domain.txt", "w") as f:
@@ -110,7 +144,7 @@ EXTENSIONS = {'broad.latencies.latencies.Latencies': 300}
 LATENCIES_INTERVAL = 2
 ```
 
-Moreover, we'll customize our spider (`BroadBenchSpider`) to persist the data from `Latencies` extension into a file for our posterior analysis.
+Moreover, we'll customize our spider [BroadBenchSpider](https://github.com/netoferraz/benchmark-mongodb-pipeline/blob/main/broad/broad/spiders/broadspider.py) to persist the data from `Latencies` extension into a file for our posterior analysis.
 
 ```python
 logname = 'sync-test.log'
