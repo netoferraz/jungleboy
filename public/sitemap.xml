@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://example.com/posts/analyzing-pipelines-performance/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/tags/performance/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/posts/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/tags/scraping/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/tags/scrapy/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/tags/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/</loc>
+    <lastmod>2021-05-15T07:52:32-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://example.com/categories/</loc>
+  </url>
+  
+</urlset>

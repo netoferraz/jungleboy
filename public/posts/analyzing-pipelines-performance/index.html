@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | Analyzing Pipelines Performance </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.80.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.cdaea5f5e29f083a610e858ff29054b15a7a2b5820a8c97cd65cfa231649e180.css"
+        integrity="sha256-za6l9eKfCDphDoWP8pBUsVp6K1ggqMl81lz6IxZJ4YA="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.cc84ed683057cc175ddfa738ea6ba2d5c882b95cb64f50bf9be918cb3791887b.css"
+        integrity="sha256-zITtaDBXzBdd36c46mui1ciCuVy2T1C/m&#43;kYyzeRiHs="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/analyzing-pipelines-performance/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.d8599ee07b7d3f11bafbac30657ccc591e8d7fd36a9f580cd4c09e24e0e4a971.js"
+            integrity="sha256-2Fme4Ht9PxG6&#43;6wwZXzMWR6Nf9Nqn1gM1MCeJODkqXE="
+            crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script type="text/javascript"
+                src="/js/anatole-theme-switcher.min.2c507695a28320822cee065375387eac9bc9f3dfd49d4dcf84bbaca2b8efb30c.js"
+                integrity="sha256-LFB2laKDIIIs7gZTdTh&#43;rJvJ89/UnU3PhLusorjvsww="
+                crossorigin="anonymous"></script>
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Analyzing Pipelines Performance"/>
+<meta name="twitter:description" content="1. Introduction As well known scrapy is one the most popular frameworks for web scraping regardless of the programming language."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+            <li class="theme-switch-item">
+                <a class="theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>Analyzing Pipelines Performance</h3>
+                
+            </div>
+
+            <h1 id="1-introduction">1. Introduction</h1>
+<p>As well known <a href="https://scrapy.org/">scrapy</a> is one the most popular frameworks for web scraping regardless of the programming language. Furthermore, its core was built on top of <a href="https://github.com/twisted/twisted">twisted</a>, which is a framework for asynchronous programming in python.</p>
+<p>Until today when I have built some pipelines to persist my data in a database, for instance in MongoDB I have used some connector based on some synchronous/blocking process, like <a href="https://pymongo.readthedocs.io/en/stable/#">pymongo</a>. That&rsquo;s said, occurred to me if there is some significant difference if the pipeline uses an asynchronous driver for interact with the database instead of the synchronous. For evaluating such difference we&rsquo;re going to use <a href="https://github.com/twisted/txmongo">txmongo</a> which is written using twisted.</p>
+<p>For the purpose of this study, we&rsquo;ll use <a href="https://github.com/scrapy/scrapy-bench">scrapy-bench</a> that is a piece of software written for benchmark analysis suggested by <a href="https://docs.scrapy.org/en/latest/topics/benchmarking.html">scrapy community</a>.</p>
+<h1 id="2-environment-setup">2. Environment Setup</h1>
+<p>First of all, let&rsquo;s clone the <code>scrapy-bench</code> repository.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">git clone https://github.com/scrapy/scrapy-bench
+</code></pre></div><p>Our next step consists of using a docker container to host locally a website <a href="http://books.toscrape.com/index.html">Books to Scrape</a> for our scraping test. Firstly, we&rsquo;re going to build a image.</p>
+<div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker">docker build -t scrapy-bench-server -f docker/Dockerfile .<span class="err">
+</span></code></pre></div><p>and then run the container to host our locally version of the website.</p>
+<div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker">docker run --rm -ti --network<span class="o">=</span>host scrapy-bench-server<span class="err">
+</span></code></pre></div><p>Moving on in our setup we&rsquo;re going to add some network mapping in <code>/etc/hosts</code> file. There are 1000 records to add to that file and put those in manually way is out of the question. Therefore we wrote a python script to generate those texts for the required mapping to our benchmark. Thus with that done we just need copy and paste the content into <code>/etc/hosts</code> and that task will be done.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./domain.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1001</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;127.0.0.1    domain{i}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</code></pre></div><p>Our next goal is to create a <code>virtual environment</code> with the required dependencies for our project. However <code>scrapy-bench</code> project evaluates mainly aspects of the throughput of the crawling process, which may be defined based on the number of pages or items crawled per a certain amount of time, usually measured in seconds. Otherwise, our scope consists to evaluate performance on writing data in a MongoDB database based on two drivers: <code>pymongo</code> and <code>txmongo</code>, where the former is synchronous and the latter is based on an asynchronous process.</p>
+<p>So we need to update the project dependencies and we&rsquo;re going to edit edit the <code>setup.py</code> file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Scrapy-Benchmark&#39;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+        <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;scrapy_bench&#39;</span><span class="p">],</span>
+        <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
+            <span class="s1">&#39;Click&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;scrapy&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;statistics&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;six&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;vmprof&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;colorama&lt;=0.4.1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;pymongo&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;txmongo&#39;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">entry_points</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;
+</span><span class="s1">		[console_scripts]
+</span><span class="s1">		scrapy-bench=bench:cli
+</span><span class="s1">		&#39;&#39;&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div><p>Thereby we can install the project requirements with the following commands.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">python -m venv .venv
+<span class="nb">source</span> .venv/bin/activate
+pip install --editable .
+</code></pre></div><p>So, last but not less important we&rsquo;re going to create an instance of MongoDB database. For that, I&rsquo;ve written a docker compose file.</p>
+<div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker">mongo:<span class="err">
+</span><span class="err"></span>    image: mongo:3.6<span class="err">
+</span><span class="err"></span>    container_name: mongodb<span class="err">
+</span><span class="err"></span>    restart: always<span class="err">
+</span><span class="err"></span>    ports:<span class="err">
+</span><span class="err"></span>        - 27017:27017<span class="err">
+</span><span class="err"></span>    environment:<span class="err">
+</span><span class="err"></span>        - <span class="nv">PUID</span><span class="o">=</span><span class="m">1000</span><span class="err">
+</span><span class="err"></span>        - <span class="nv">PGID</span><span class="o">=</span><span class="m">1000</span><span class="err">
+</span><span class="err"></span>    volumes:<span class="err">
+</span><span class="err"></span>        - ~/development/Docker/Volumes/MongoDB:/data/db<span class="err">
+</span></code></pre></div><p>To put our database up and running we run the following command.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">docker-compose -f docker-compose.yml up mongo
+</code></pre></div><h1 id="3-customizing-the-pipeline">3. Customizing the pipeline</h1>
+<p>As we said we&rsquo;re going to evaluate the performance of two connectors for MongoDB database. For that, we&rsquo;ll use an extension written by <a href="https://github.com/lookfwd">Dimitrios Kouzis-Loukas</a> which measures throughput and latencies along the process of crawling. Better than that this extension tracks the amount of time consumed of an item along the item pipeline, which in our case is the persistence of the data in MongoDB. If you are interested in checkout the full implementation of this extension you can find the code <a href="https://github.com/scalingexcellence/scrapybook/blob/4a051e8ca25326084699900979b6a705e38a1235/ch09/properties/properties/latencies.py">here</a>.</p>
+<p>Thus to activate this extension in our code base we need to include the code below in the <code>settings.py</code> of our scrapy project.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">EXTENSIONS</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;broad.latencies.latencies.Latencies&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">}</span>
+<span class="n">LATENCIES_INTERVAL</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div><p>Moreover, we&rsquo;ll customize our spider (<code>BroadBenchSpider</code>) to persist the data from <code>Latencies</code> extension into a file for our posterior analysis.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">logname</span> <span class="o">=</span> <span class="s1">&#39;sync-test.log&#39;</span>
+<span class="c1">#logname = &#39;async-test.log&#39;</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">fh</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">logname</span><span class="p">)</span>
+<span class="n">fh</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+</code></pre></div><h2 id="31-pymongo">3.1 pymongo</h2>
+<p>We&rsquo;re going to use a pipeline for pymongo available in <a href="https://github.com/sebdah/scrapy-mongodb">this repository</a>. After we created an module to host a <code>MongoDBPipeline</code> class which implement our pipeline to save an item in the database, we need to insert aditional configuration in <code>settings.py</code> in similar manner we did before.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">MONGODB_URI</span> <span class="o">=</span> <span class="s1">&#39;mongodb://localhost:27017&#39;</span>
+<span class="n">MONGODB_DATABASE</span> <span class="o">=</span> <span class="s1">&#39;scrapy&#39;</span>
+<span class="n">MONGODB_COLLECTION</span> <span class="o">=</span> <span class="s1">&#39;books&#39;</span>
+<span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;broad.mongosync.mongosync.MongoDBPipeline&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">}</span>
+</code></pre></div><h3 id="311-pymongo-benchmark">3.1.1 pymongo benchmark</h3>
+<p>For getting some reliable metrics for our analysis we&rsquo;re going to run our tests with 10 replicates. So we&rsquo;ll start the test by the command:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">time</span> scrapy-bench --n-runs <span class="m">10</span> broadworm
+</code></pre></div><p>That way our test will crawl our target website ten times which one of them will close automatically when reach 800 items collected (<code>CLOSESPIDER_ITEMCOUNT = 800</code>). This code will give to us some stats about throughput in ours runs. Well, that said we present below the stats for the pymongo pipeline.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">The results of the benchmark are <span class="o">(</span>all speeds in items/sec<span class="o">)</span> :
+
+
+<span class="nv">Test</span> <span class="o">=</span> <span class="s1">&#39;Broad Crawl&#39;</span> <span class="nv">Iterations</span> <span class="o">=</span> <span class="s1">&#39;10&#39;</span>
+
+
+Mean : 18.736101409402963 Median : 21.69220137534533 Std Dev : 7.742630114239552
+
+
+real    13m17.442s
+user    4m6.533s
+sys     0m3.214s
+</code></pre></div><p>With that done we can inspect a few lines of <code>sync-test.log</code> file which logs stats provided by the <code>Latencies</code> extension.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Scraped <span class="m">0</span> items at 0.0 items/s, avg latency: 0.00 s and avg <span class="nb">time</span> in pipelines: 0.00 s
+Scraped <span class="m">50</span> items at 25.0 items/s, avg latency: 1.33 s and avg <span class="nb">time</span> in pipelines: 1.03 s
+Scraped <span class="m">13</span> items at 6.5 items/s, avg latency: 2.52 s and avg <span class="nb">time</span> in pipelines: 0.17 s
+Scraped <span class="m">16</span> items at 8.0 items/s, avg latency: 4.53 s and avg <span class="nb">time</span> in pipelines: 0.14 s
+Scraped <span class="m">53</span> items at 26.5 items/s, avg latency: 5.58 s and avg <span class="nb">time</span> in pipelines: 0.16 s
+Scraped <span class="m">70</span> items at 35.0 items/s, avg latency: 6.05 s and avg <span class="nb">time</span> in pipelines: 0.23 s
+Scraped <span class="m">83</span> items at 41.5 items/s, avg latency: 6.00 s and avg <span class="nb">time</span> in pipelines: 0.42 s
+Scraped <span class="m">81</span> items at 40.5 items/s, avg latency: 5.23 s and avg <span class="nb">time</span> in pipelines: 0.82 s
+Scraped <span class="m">78</span> items at 39.0 items/s, avg latency: 6.33 s and avg <span class="nb">time</span> in pipelines: 1.20 s
+Scraped <span class="m">86</span> items at 43.0 items/s, avg latency: 6.07 s and avg <span class="nb">time</span> in pipelines: 1.22 s
+Scraped <span class="m">96</span> items at 48.0 items/s, avg latency: 5.70 s and avg <span class="nb">time</span> in pipelines: 1.11 s
+</code></pre></div><p>With this file in our hands, we&rsquo;re going to analyze this log to evaluate the time spent in the pipeline stage.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">dfsync</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./data/sync-test.log&#34;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">dfsync</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span> <span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">dfsync</span><span class="p">[[</span><span class="s1">&#39;num_items&#39;</span><span class="p">,</span> <span class="s1">&#39;throughput&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_latency&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_time_in_pipeline&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dfsync</span><span class="p">[</span><span class="s1">&#39;log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&#34;(\d+(?:\.\d+)?)&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;throughput&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_latency&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_time_in_pipeline&#39;</span><span class="p">]:</span>
+  <span class="n">dfsync</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsync</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> 
+<span class="n">dfsync</span><span class="p">[</span><span class="s1">&#39;num_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfsync</span><span class="p">[</span><span class="s1">&#39;num_items&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> 
+</code></pre></div><p>As we could see in the following table on average our spider spent 0.42 seconds in the pipeline stage when we used pymongo as our driver to persist data in MongoDB database.<br>
+<img src="/analyzing_pipeperf/sync_describe.PNG" alt="sync_describe"></p>
+<h2 id="32-txmongo">3.2 txmongo</h2>
+<p>For this driver we&rsquo;re going to use an implementation for MongoDB pipeline available in <a href="https://github.com/scrapedia/scrapy-pipelines">this repository</a>. First, we need to change our pipeline settings to use <code>MongoPipeline</code> class which implements the use of <code>txmongo</code> to communicate with the database.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">#&#39;broad.mongosync.mongosync.MongoDBPipeline&#39;: 300,</span>
+    <span class="s1">&#39;broad.asyncpipe.pipelines.mongo.MongoPipeline&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="321-txmongo-benchmark">3.2.1 txmongo benchmark</h3>
+<p>Similarly, we&rsquo;ll repeat the procedure for this test.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">time</span> scrapy-bench --n-runs <span class="m">10</span> broadworm
+</code></pre></div><p>After some minutes our test was done and the results are:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">The results of the benchmark are <span class="o">(</span>all speeds in items/sec<span class="o">)</span> :
+
+
+<span class="nv">Test</span> <span class="o">=</span> <span class="s1">&#39;Broad Crawl&#39;</span> <span class="nv">Iterations</span> <span class="o">=</span> <span class="s1">&#39;10&#39;</span>
+
+
+Mean : 20.92516241044525 Median : 21.582681058580057 Std Dev : 6.066783428367009
+
+
+real    9m42.868s
+user    4m23.577s
+sys     0m3.396s
+</code></pre></div><p>Analyzing the data logged by our extension we can determine the average time spent for our crawler in the spider pipeline.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">dfasync</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;./data/async-test.log&#34;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+<span class="n">dfasync</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span> <span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">dfasync</span><span class="p">[[</span><span class="s1">&#39;num_items&#39;</span><span class="p">,</span> <span class="s1">&#39;throughput&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_latency&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_time_in_pipeline&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dfasync</span><span class="p">[</span><span class="s1">&#39;log&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&#34;(\d+(?:\.\d+)?)&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;throughput&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_latency&#39;</span><span class="p">,</span> <span class="s1">&#39;avg_time_in_pipeline&#39;</span><span class="p">]:</span>
+  <span class="n">dfasync</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfasync</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> 
+  <span class="n">dfasync</span><span class="p">[</span><span class="s1">&#39;num_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfasync</span><span class="p">[</span><span class="s1">&#39;num_items&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> 
+</code></pre></div><p><img src="/analyzing_pipeperf/async_describe.PNG" alt="aysnc_head"></p>
+<h1 id="4-results">4. Results</h1>
+<p>The table bellow shows the consolidated results of our tests.</p>
+<table>
+<thead>
+<tr>
+<th>driver</th>
+<th>items/sec</th>
+<th>pipeline time</th>
+<th>benchmark overall time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pymongo</td>
+<td>18.74 ± 7.74</td>
+<td>0.41 ± 0.39</td>
+<td>13m17.442s</td>
+</tr>
+<tr>
+<td>txmongo</td>
+<td>20.93 ± 6.07</td>
+<td>0.66 ± 0.61</td>
+<td>9m42.868s</td>
+</tr>
+</tbody>
+</table>
+<p>First of all, we&rsquo;re going to make a statistical test called 2 sample t-test to evaluate if there is a statistical difference between a time spent in the pipeline stage of our spider when it uses pymongo or txmongo to persist data in MongoDB database. Furthermore, we&rsquo;ll perform our test with a confidence interval of 95% and our null hypothesis for this test will be:</p>
+<p>H(0) : There is <strong>no difference</strong> in the time spent in scrapy pipeline when saving data onto database when use txmongo instead of pymongo.</p>
+<p>H(1) : There is a <strong>difference</strong> in the time spent in scrapy pipeline when saving data onto database when use txmongo instead of pymongo.</p>
+<p>For this task, we need to select all the records when the numbers of items collected by our spider were different from zero on each test and by each sample we collect the average and standard deviation for this data.</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">N_pymongo = 242
+N_txmongo = 224
+avg_pymongo = 0.41
+avg_txmongo = 0.66
+std_pymongo = 0.39
+std_txmongo = 0.61
+df = N_pymongo + N_txmongo - 2 #degree of freedom
+
+</code></pre></div><p>Then we can calculate the t-statistic for our test.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">t_calc</span> <span class="o">=</span> <span class="p">(</span><span class="n">avg_pymongo</span><span class="o">-</span><span class="n">avg_txmongo</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">std_pymongo</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">N_pymongo</span><span class="p">)</span><span class="o">+</span><span class="p">((</span><span class="n">std_txmongo</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">N_txmongo</span><span class="p">))</span>
+</code></pre></div><p>With the above calculation, we got a value of -5.224. Then we need to compare this value with the critical t-value from t-distribution. There are several sources to get this data, one of these is this <a href="https://faculty.washington.edu/heagerty/Books/Biostatistics/TABLES/t-Tables/">site</a>. Thus, the critical value for t is 1.97. <strong>Therefore we can&rsquo;t reject the null hypothesis and there are no statistical evidence that the average time spent saving data in database is different when use txmongo instead of pymongo.</strong></p>
+<p>Besides that, even that we can&rsquo;t identify any difference in the pipeline stage for changing our driver from pymongo to txmongo, we need to mention that the overall time consumed for our complete test (10 runs) took 794.4 seconds to complete when the test was executed with pymongo, that is approximately <strong>36% slower</strong> when our test was runned with txmongo. Maybe this enhancement for the overall process of web scraping when we&rsquo;re using txmongo, could be justified by the use of the same engine used by scrapy.</p>
+<p>Thus I hope you have enjoyed this article the same way I have it to write it. The code used in this article can be found in this <a href="https://github.com/netoferraz/benchmark-mongodb-pipeline">repository</a>. See you in the next post!</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/scraping/">scraping</a><a class="tag" href="/tags/scrapy/">scrapy</a><a class="tag" href="/tags/performance/">performance</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script></body>
+
+</html>
