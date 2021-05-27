@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | A message Producer for Scrapy Pipeline </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.80.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.cdaea5f5e29f083a610e858ff29054b15a7a2b5820a8c97cd65cfa231649e180.css"
+        integrity="sha256-za6l9eKfCDphDoWP8pBUsVp6K1ggqMl81lz6IxZJ4YA="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.cc84ed683057cc175ddfa738ea6ba2d5c882b95cb64f50bf9be918cb3791887b.css"
+        integrity="sha256-zITtaDBXzBdd36c46mui1ciCuVy2T1C/m&#43;kYyzeRiHs="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/messaging-scrapy-pipeline/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.d8599ee07b7d3f11bafbac30657ccc591e8d7fd36a9f580cd4c09e24e0e4a971.js"
+            integrity="sha256-2Fme4Ht9PxG6&#43;6wwZXzMWR6Nf9Nqn1gM1MCeJODkqXE="
+            crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script type="text/javascript"
+                src="/js/anatole-theme-switcher.min.2c507695a28320822cee065375387eac9bc9f3dfd49d4dcf84bbaca2b8efb30c.js"
+                integrity="sha256-LFB2laKDIIIs7gZTdTh&#43;rJvJ89/UnU3PhLusorjvsww="
+                crossorigin="anonymous"></script>
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A message Producer for Scrapy Pipeline"/>
+<meta name="twitter:description" content="1. Introduction Querido Diário is one of the most promising open-source projects that aim to contribute with government transparency and aim to integrate several government gazettes in a way that information could be machine-readable."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+            <li class="theme-switch-item">
+                <a class="theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>A message Producer for Scrapy Pipeline</h3>
+                
+            </div>
+
+            <h1 id="1-introduction">1. Introduction</h1>
+<p><a href="https://github.com/okfn-brasil/querido-diario">Querido Diário</a> is one of the most promising open-source projects that aim to contribute with government transparency and aim to integrate several government gazettes in a way that information could be machine-readable.</p>
+<p>I&rsquo;m following their work whenever possible but until today I couldn&rsquo;t contribute to their project. However, days ago navigating through their Discord group I saw an <a href="https://github.com/okfn-brasil/querido-diario/issues/453">issue</a> about some interest for one of their project maintainers about some implementation of a queue system to process some files collected by their crawlers.</p>
+<p>Querido Diário uses mainly scrapy to built their crawlers. Thus I have decided this was a good opportunity to perhaps contribute to the project. So the main purpose of this post is to build and presents one viable implementation of a Message Producer for use in scrapy pipelines.</p>
+<h1 id="2-our-tiny-project">2. Our tiny project</h1>
+<p>First of all, we&rsquo;re going to present a hypothetical scenario where a message system could help a project of web scraping. Imagine a certain project where we&rsquo;re going to scrape news from the site <a href="https://www.wired.co.uk/">wired</a> and their content is classified into several categories, like Business, Technology, Politics, and so on. In our scenario each one of these categories has some particularities in terms of business logic, and for the good sake of our code will be better to build different crawlers for each of these categories. For this toy project, we defined only a subset of categories only to see our pipeline working. So, they are Science, Business, Culture, and Security.</p>
+<p>That&rsquo;s said we&rsquo;re going to build a &ldquo;main spider&rdquo; to navigate through the sitemap and collect information about the category of each of the listed URLs in the sitemap. We&rsquo;ll create an <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/items.py#L11">Item</a> to hold the data we want to collect in the URLs that spider will visit.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">scrapy</span>
+<span class="kn">from</span> <span class="nn">itemloaders.processors</span> <span class="kn">import</span> <span class="n">MapCompose</span><span class="p">,</span> <span class="n">TakeFirst</span>
+<span class="kn">from</span> <span class="nn">w3lib.html</span> <span class="kn">import</span> <span class="n">remove_tags</span>
+
+
+<span class="k">class</span> <span class="nc">NewsItem</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Item</span><span class="p">):</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span>
+        <span class="n">input_processor</span><span class="o">=</span><span class="n">MapCompose</span><span class="p">(</span><span class="n">remove_tags</span><span class="p">),</span> <span class="n">output_processor</span><span class="o">=</span><span class="n">TakeFirst</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">output_processor</span><span class="o">=</span><span class="n">TakeFirst</span><span class="p">())</span>
+
+</code></pre></div><p>The next step is our <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/spiders/wired_spider.py#L7">principal spider</a> which will collect all URLs and their categories.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">scrapy.spiders</span> <span class="kn">import</span> <span class="n">SitemapSpider</span>
+<span class="kn">from</span> <span class="nn">scrapy.loader</span> <span class="kn">import</span> <span class="n">ItemLoader</span>
+<span class="kn">from</span> <span class="nn">wired.items</span> <span class="kn">import</span> <span class="n">NewsItem</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+
+<span class="k">class</span> <span class="nc">WiredSpider</span><span class="p">(</span><span class="n">SitemapSpider</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;newswired&#34;</span>
+    <span class="n">sitemap_urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;https://www.wired.co.uk/sitemap.xml&#34;</span><span class="p">]</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">ItemLoader</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">NewsItem</span><span class="p">(),</span> <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span>
+            <span class="s2">&#34;category&#34;</span><span class="p">,</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span>
+                <span class="s2">&#34;//main[@id=&#39;main-content&#39;]//a[contains(@href, &#39;/topic/&#39;)]&#34;</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">add_value</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span><span class="o">.</span><span class="n">load_item</span><span class="p">()</span>
+
+</code></pre></div><h2 id="21-message-producer">2.1 Message Producer</h2>
+<p>There are plenty of resources and implementations available on the internet to build message producers. For this project, we combine characteristics of two producers proposed by the maintainers of the <a href="https://github.com/pika/pika/blob/master/examples/asynchronous_publisher_example.py">Pika client</a> as well an implementation used by <a href="https://github.com/RasaHQ/rasa">Rasa</a> in its version <a href="https://github.com/RasaHQ/rasa/releases/tag/1.4.3">1.4.3</a>. That&rsquo;s said we can view our folder structure.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+├── README.md
+├── docker-compose.yml
+├── poetry.lock
+├── pyproject.toml
+├── wired
+    ├── scrapy.cfg
+    └── wired
+        ├── __init__.py
+        ├── items.py
+        ├── middlewares.py
+        ├── pipelines.py
+        ├── settings.py
+        └── spiders
+            ├── __init__.py
+            └── wired_spider.py
+</code></pre></div><p>Our work has resulted in a class called <code>PikaProducer</code> which lives in <code>pipelines.py</code> file. For the fellows who want to look at the complete code, you would find it <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">here</a>.For the fellows who want to look at the complete code, you would find it here. Thus, we&rsquo;re going to highlight only some parts of the logic behind this producer. In the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/main/wired/wired/settings.py">settings.py</a> we defined some configuration variables used on the initialization of the <code>PikaProducer</code>. In those variables, we defined that we&rsquo;re going to create an <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges">exchange</a> called <code>news_subject</code> of category <code>direct</code> as well we establish the names for our queues and routing keys.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">RABBITMQ_HOST</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+<span class="n">RABBITMQ_PORT</span> <span class="o">=</span> <span class="mi">5672</span>
+<span class="n">RABBITMQ_USERNAME</span> <span class="o">=</span> <span class="s2">&#34;guest&#34;</span>
+<span class="n">RABBITMQ_PASSWORD</span> <span class="o">=</span> <span class="s2">&#34;guest&#34;</span>
+<span class="n">RABBITMQ_EXCHANGE</span> <span class="o">=</span> <span class="s2">&#34;news_subject&#34;</span>
+<span class="n">RABBITMQ_EXCHANGE_TYPE</span> <span class="o">=</span> <span class="n">ExchangeType</span><span class="o">.</span><span class="n">direct</span>
+<span class="n">RABBITMQ_QUEUES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Science&#34;</span><span class="p">,</span> <span class="s2">&#34;Business&#34;</span><span class="p">,</span> <span class="s2">&#34;Culture&#34;</span><span class="p">,</span> <span class="s2">&#34;Security&#34;</span><span class="p">]</span>
+<span class="n">RABBITMQ_ROUTING_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;science&#34;</span><span class="p">,</span> <span class="s2">&#34;business&#34;</span><span class="p">,</span> <span class="s2">&#34;culture&#34;</span><span class="p">,</span> <span class="s2">&#34;security&#34;</span><span class="p">]</span>
+</code></pre></div><p>For the <code>PikaProducer</code> to access those variables we have defined a class method <code>from_crawler</code> that enables that class to access data from settings.py.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+        <span class="n">host</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_HOST&#34;</span><span class="p">),</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_PORT&#34;</span><span class="p">),</span>
+        <span class="n">username</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_USERNAME&#34;</span><span class="p">),</span>
+        <span class="n">password</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_PASSWORD&#34;</span><span class="p">),</span>
+        <span class="n">exchange</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_EXCHANGE&#34;</span><span class="p">),</span>
+        <span class="n">exchange_type</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_EXCHANGE_TYPE&#34;</span><span class="p">),</span>
+        <span class="n">queues_names</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_QUEUES&#34;</span><span class="p">),</span>
+        <span class="n">routing_keys</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_ROUTING_KEYS&#34;</span><span class="p">),</span>
+    <span class="p">)</span>
+</code></pre></div><p>That way when this class is instantiate will be possible to access our configurations defined in <code>settings.py</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+<span class="k">class</span> <span class="nc">PikaProducer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">exchange</span><span class="p">,</span> <span class="n">exchange_type</span><span class="p">,</span> <span class="n">queues_names</span><span class="p">,</span> <span class="n">routing_keys</span><span class="p">,):</span>
+        <span class="s2">&#34;&#34;&#34;RabbitMQ event producer.&#34;&#34;&#34;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">host</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE</span> <span class="o">=</span> <span class="n">exchange</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE_TYPE</span> <span class="o">=</span> <span class="n">exchange_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">QUEUES</span> <span class="o">=</span> <span class="n">queues_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ROUTING_KEYS</span> <span class="o">=</span> <span class="n">routing_keys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deliveries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_acked</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nacked</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stopping</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div><p>Scrapy offers helper methods that enable us to control some action that will be triggered at the start and the end of a web scraping. So we used those to initialize and properly closes our producer.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+<span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_pika</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Something has wrong on trying to connect to RabbitMQ service.&#34;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">close_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre></div><p>The following methods are responsible to create/declare our exchange and bind our queues with the exchange and their respectively routing keys.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+<span class="k">def</span> <span class="nf">setup_exchange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange_name</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Setup the exchange on RabbitMQ by invoking the Exchange.Declare RPC
+</span><span class="s2">    command. When it is complete, the on_exchange_declareok method will
+</span><span class="s2">    be invoked by pika.
+</span><span class="s2">    :param str|unicode exchange_name: The name of the exchange to declare
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Declaring exchange </span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">exchange_name</span><span class="p">)</span>
+    <span class="c1"># Note: using functools.partial is not required, it is demonstrating</span>
+    <span class="c1"># how arbitrary data can be passed to the callback when it is called</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">on_exchange_declareok</span><span class="p">,</span> <span class="n">userdata</span><span class="o">=</span><span class="n">exchange_name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">exchange_declare</span><span class="p">(</span>
+        <span class="n">exchange</span><span class="o">=</span><span class="n">exchange_name</span><span class="p">,</span> <span class="n">exchange_type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE_TYPE</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">cb</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">on_exchange_declareok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unused_frame</span><span class="p">,</span> <span class="n">userdata</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Invoked by pika when RabbitMQ has finished the Exchange.Declare RPC
+</span><span class="s2">    command.
+</span><span class="s2">    :param pika.Frame.Method unused_frame: Exchange.DeclareOk response frame
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Exchange declared {userdata}.&#34;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">queue_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">QUEUES</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_queue</span><span class="p">(</span><span class="n">queue_name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">setup_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">queue_name</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Setup the queue on RabbitMQ by invoking the Queue.Declare RPC
+</span><span class="s2">    command. When it is complete, the on_queue_declareok method will
+</span><span class="s2">    be invoked by pika.
+</span><span class="s2">    :param str|unicode queue_name: The name of the queue to declare.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Declaring queue </span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">queue_name</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">queue_declare</span><span class="p">(</span><span class="n">queue</span><span class="o">=</span><span class="n">queue_name</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_queue_declareok</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">on_queue_declareok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_unused_frame</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Method invoked by pika when the Queue.Declare RPC call made in
+</span><span class="s2">    setup_queue has completed. In this method we will bind the queue
+</span><span class="s2">    and exchange together with the routing key by issuing the Queue.Bind
+</span><span class="s2">    RPC command. When this command is complete, the on_bindok method will
+</span><span class="s2">    be invoked by pika.
+</span><span class="s2">    :param pika.frame.Method method_frame: The Queue.DeclareOk frame
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="k">for</span> <span class="n">queue_name</span><span class="p">,</span> <span class="n">routing_key</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">QUEUES</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ROUTING_KEYS</span><span class="p">):</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&#34;Binding </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2"> with </span><span class="si">%s</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE</span><span class="p">,</span> <span class="n">queue_name</span><span class="p">,</span> <span class="n">routing_key</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">queue_bind</span><span class="p">(</span>
+            <span class="n">queue_name</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE</span><span class="p">,</span>
+            <span class="n">routing_key</span><span class="o">=</span><span class="n">routing_key</span><span class="p">,</span>
+            <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_bindok</span><span class="p">,</span>
+        <span class="p">)</span>
+</code></pre></div><p>Move on in the partial analysis of <code>PikaProducer</code>, we select to present the method responsible for sending messages to our previously defined exchange.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+
+<span class="k">def</span> <span class="nf">publish_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">routing_key</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;If the class is not stopping, publish a message to RabbitMQ,
+</span><span class="s2">    appending a list of deliveries with the message number that was sent.
+</span><span class="s2">    This list will be used to check for delivery confirmations in the
+</span><span class="s2">    on_delivery_confirmations method.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">is_open</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">properties</span> <span class="o">=</span> <span class="n">pika</span><span class="o">.</span><span class="n">BasicProperties</span><span class="p">(</span>
+        <span class="n">app_id</span><span class="o">=</span><span class="s2">&#34;wired-crawler&#34;</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&#34;application/json&#34;</span>
+    <span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_channel</span><span class="o">.</span><span class="n">basic_publish</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">EXCHANGE</span><span class="p">,</span>
+        <span class="n">routing_key</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+        <span class="n">properties</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_deliveries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span><span class="p">)</span>
+    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Published message # </span><span class="si">%i</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span><span class="p">)</span>
+</code></pre></div><p>The last piece that we decided to show about PikaProducer is the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/deafcf2e8b5830453630c10668d087c1071ff5e4/wired/wired/pipelines.py#L291">process_item</a> method which wheres resides the logic inside scrapy to manipulate the items collected during the scraping. I have decided to drop all items that for some reason do not have a category assigned or if there is one that not belongs to our defined scope. That way our producer will send a message to the exchange which in turn will forward the message for the queue determined by the routing key assigned in publish message method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
+<span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;category&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">category</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="s2">&#34;We cannot identify which category this article belongs.&#34;</span><span class="p">)</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">category</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">category</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ROUTING_KEYS</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">DropItem</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;The category {category} is not include in our project.&#34;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">publish_message</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;url&#34;</span><span class="p">:</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">)},</span> <span class="n">routing_key</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+</code></pre></div><p>Thereby we&rsquo;ve finished our tour on our implementation of a message producer. The next step is to activate that pipeline. For this purpose, we just add the following code to <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/deafcf2e8b5830453630c10668d087c1071ff5e4/wired/wired/settings.py#L27">settings.py</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">ITEM_PIPELINES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;wired.pipelines.PikaProducer&#34;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div><p>Before we run our <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/deafcf2e8b5830453630c10668d087c1071ff5e4/wired/wired/spiders/wired_spider.py#L7">WiredSpider</a> to test our pipeline, we&rsquo;re going to set up an instance of RabbitMQ. The code below contains the instruction to do that with a docker container.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#this code belongs to the file docker-compose.yml</span><span class="w">
+</span><span class="w"></span><span class="nt">rabbitmq</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">rabbitmq:3-management-alpine</span><span class="w">
+</span><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">my-rabbit</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="l">./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json</span><span class="w">
+</span><span class="w">        </span>- <span class="l">./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit</span><span class="w">
+</span><span class="w">        </span>- <span class="l">./rabbitmq/logs:/var/log/rabbitmq/log</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="m">5672</span><span class="p">:</span><span class="m">5672</span><span class="w">
+</span><span class="w">        </span>- <span class="m">15672</span><span class="p">:</span><span class="m">15672</span><span class="w">
+</span></code></pre></div><p>To start the RabbiMQ instance we can use: <code>docker-compose up -d rabbitmq</code>. With all set we can navigate to <code>./wired</code> folder and call the command:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">scrapy crawl newswired
+</code></pre></div><p>As our goal is only test our pipeline in action we&rsquo;ve configured our spider to closes when it reached 500 items collected (<code>CLOSESPIDER_ITEMCOUNT=500</code>). After the run finished we can access http://localhost:15672/#/queues thourgh the browser and and will appear the numbers of messages received by each queue.</p>
+<p><img src="/message_producer/rabbitmq_queue.png" alt="message_queue"></p>
+<p>Assim we&rsquo;ve  tested our message producer connected to a scrapy pipeline. Thus, in a near future we could bring to this blog perhaps one consumer for this toy project. What do you think? I hope you have enjoyed this blog post. See you next time! 🤓</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/scraping/">scraping</a><a class="tag" href="/tags/scrapy/">scrapy</a><a class="tag" href="/tags/rabbitmq/">rabbitmq</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script></body>
+
+</html>
