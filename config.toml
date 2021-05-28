@@ -14,7 +14,7 @@ enableRobotsTXT = true
 #disqusShortname = ""
 
 # Google Analytics
-#googleAnalytics = "UA-123-45"
+#googleAnalytics = ""
 
 # Syntax highlighting
 pygmentsUseClasses = true
@@ -26,6 +26,7 @@ title = "I'm José"
 author = "José Ferraz Neto"
 description = "Born in a jungle and living in a world of data."
 profilePicture = "/profile.png"
+gtagId = "G-3ET97GCNPG"
 
 [[params.socialIcons]]
 icon = "fab fa-github"
