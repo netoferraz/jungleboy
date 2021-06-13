@@ -3,52 +3,72 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://example.com/posts/messaging-scrapy-pipeline/</loc>
+    <loc>https://jungleboy.netlify.app/tags/docker/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/tags/gcp/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/tags/scraping/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/tags/serverless/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/posts/serverless-scrapy/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jungleboy.netlify.app/posts/messaging-scrapy-pipeline/</loc>
     <lastmod>2021-05-27T10:52:55-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/posts/</loc>
+    <loc>https://jungleboy.netlify.app/tags/rabbitmq/</loc>
     <lastmod>2021-05-27T10:52:55-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/tags/rabbitmq/</loc>
-    <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/scraping/</loc>
-    <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/scrapy/</loc>
-    <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/tags/</loc>
-    <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/</loc>
-    <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://example.com/posts/analyzing-pipelines-performance/</loc>
+    <loc>https://jungleboy.netlify.app/posts/analyzing-pipelines-performance/</loc>
     <lastmod>2021-05-15T07:52:32-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/tags/performance/</loc>
+    <loc>https://jungleboy.netlify.app/tags/performance/</loc>
     <lastmod>2021-05-15T07:52:32-03:00</lastmod>
   </url>
   
   <url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://jungleboy.netlify.app/categories/</loc>
   </url>
   
 </urlset>

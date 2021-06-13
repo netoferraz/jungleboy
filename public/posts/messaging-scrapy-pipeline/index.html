@@ -135,7 +135,7 @@
 
             <h1 id="1-introduction">1. Introduction</h1>
 <p><a href="https://github.com/okfn-brasil/querido-diario">Querido Diário</a> is one of the most promising open-source projects that aim to contribute with government transparency and aim to integrate several government gazettes in a way that information could be machine-readable.</p>
-<p>I&rsquo;m following their work whenever possible but until today I couldn&rsquo;t contribute to their project. However, days ago navigating through their Discord group I saw an <a href="https://github.com/okfn-brasil/querido-diario/issues/453">issue</a> about some interest for one of their project maintainers about some implementation of a queue system to process some files collected by their crawlers.</p>
+<p>I&rsquo;m following their work whenever possible but until today I couldn&rsquo;t contribute to their project. However, days ago navigating through their <a href="https://discord.gg/jFaUub7T">Discord group</a> I saw an <a href="https://github.com/okfn-brasil/querido-diario/issues/453">issue</a> about some interest for one of their project maintainers on possibles implementations of a queue system to process some files collected by their crawlers.</p>
 <p>Querido Diário uses mainly scrapy to built their crawlers. Thus I have decided this was a good opportunity to perhaps contribute to the project. So the main purpose of this post is to build and presents one viable implementation of a Message Producer for use in scrapy pipelines.</p>
 <h1 id="2-our-tiny-project">2. Our tiny project</h1>
 <p>First of all, we&rsquo;re going to present a hypothetical scenario where a message system could help a project of web scraping. Imagine a certain project where we&rsquo;re going to scrape news from the site <a href="https://www.wired.co.uk/">wired</a> and their content is classified into several categories, like Business, Technology, Politics, and so on. In our scenario each one of these categories has some particularities in terms of business logic, and for the good sake of our code will be better to build different crawlers for each of these categories. For this toy project, we defined only a subset of categories only to see our pipeline working. So, they are Science, Business, Culture, and Security.</p>
@@ -193,7 +193,7 @@
         └── spiders
             ├── __init__.py
             └── wired_spider.py
-</code></pre></div><p>Our work has resulted in a class called <code>PikaProducer</code> which lives in <code>pipelines.py</code> file. For the fellows who want to look at the complete code, you would find it <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">here</a>.For the fellows who want to look at the complete code, you would find it here. Thus, we&rsquo;re going to highlight only some parts of the logic behind this producer. In the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/main/wired/wired/settings.py">settings.py</a> we defined some configuration variables used on the initialization of the <code>PikaProducer</code>. In those variables, we defined that we&rsquo;re going to create an <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges">exchange</a> called <code>news_subject</code> of category <code>direct</code> as well we establish the names for our queues and routing keys.</p>
+</code></pre></div><p>Our work has resulted in a class called <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">PikaProducer</a> which lives in <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py">pipelines.py</a> file. For the fellows who want to look at the complete code, you would find it <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">here</a>. Thus, we&rsquo;re going to highlight only some parts of the logic behind this producer. In the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/main/wired/wired/settings.py">settings.py</a> we defined some configuration variables used on the initialization of the  <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">PikaProducer</a>. In those variables, we defined that we&rsquo;re going to create an <a href="https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges">exchange</a> called <code>news_subject</code> of category <code>direct</code> as well we establish the names for our queues and routing keys.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">RABBITMQ_HOST</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
 <span class="n">RABBITMQ_PORT</span> <span class="o">=</span> <span class="mi">5672</span>
 <span class="n">RABBITMQ_USERNAME</span> <span class="o">=</span> <span class="s2">&#34;guest&#34;</span>
@@ -202,7 +202,7 @@
 <span class="n">RABBITMQ_EXCHANGE_TYPE</span> <span class="o">=</span> <span class="n">ExchangeType</span><span class="o">.</span><span class="n">direct</span>
 <span class="n">RABBITMQ_QUEUES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;Science&#34;</span><span class="p">,</span> <span class="s2">&#34;Business&#34;</span><span class="p">,</span> <span class="s2">&#34;Culture&#34;</span><span class="p">,</span> <span class="s2">&#34;Security&#34;</span><span class="p">]</span>
 <span class="n">RABBITMQ_ROUTING_KEYS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;science&#34;</span><span class="p">,</span> <span class="s2">&#34;business&#34;</span><span class="p">,</span> <span class="s2">&#34;culture&#34;</span><span class="p">,</span> <span class="s2">&#34;security&#34;</span><span class="p">]</span>
-</code></pre></div><p>For the <code>PikaProducer</code> to access those variables we have defined a class method <code>from_crawler</code> that enables that class to access data from settings.py.</p>
+</code></pre></div><p>For the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">PikaProducer</a> to access those variables we have defined a class method <code>from_crawler</code> that enables that class to access data from <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/settings.py">settings.py</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
 <span class="nd">@classmethod</span>
 <span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
@@ -216,7 +216,7 @@
         <span class="n">queues_names</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_QUEUES&#34;</span><span class="p">),</span>
         <span class="n">routing_keys</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;RABBITMQ_ROUTING_KEYS&#34;</span><span class="p">),</span>
     <span class="p">)</span>
-</code></pre></div><p>That way when this class is instantiate will be possible to access our configurations defined in <code>settings.py</code>.</p>
+</code></pre></div><p>That way when this class is instantiate will be possible to access our configurations defined in <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/settings.py">settings.py</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
 <span class="k">class</span> <span class="nc">PikaProducer</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">exchange</span><span class="p">,</span> <span class="n">exchange_type</span><span class="p">,</span> <span class="n">queues_names</span><span class="p">,</span> <span class="n">routing_keys</span><span class="p">,):</span>
@@ -299,7 +299,7 @@
             <span class="n">routing_key</span><span class="o">=</span><span class="n">routing_key</span><span class="p">,</span>
             <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">on_bindok</span><span class="p">,</span>
         <span class="p">)</span>
-</code></pre></div><p>Move on in the partial analysis of <code>PikaProducer</code>, we select to present the method responsible for sending messages to our previously defined exchange.</p>
+</code></pre></div><p>Move on in the partial analysis of <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">PikaProducer</a>, we select to present the method responsible for sending messages to our previously defined exchange.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
 
 <span class="k">def</span> <span class="nf">publish_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">routing_key</span><span class="p">):</span>
@@ -324,7 +324,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_deliveries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span><span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Published message # </span><span class="si">%i</span><span class="s2">&#34;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message_number</span><span class="p">)</span>
-</code></pre></div><p>The last piece that we decided to show about PikaProducer is the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/deafcf2e8b5830453630c10668d087c1071ff5e4/wired/wired/pipelines.py#L291">process_item</a> method which wheres resides the logic inside scrapy to manipulate the items collected during the scraping. I have decided to drop all items that for some reason do not have a category assigned or if there is one that not belongs to our defined scope. That way our producer will send a message to the exchange which in turn will forward the message for the queue determined by the routing key assigned in publish message method.</p>
+</code></pre></div><p>The last piece that we decided to show about <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/4946f41519e45657ad67e61dc1936b001755af88/wired/wired/pipelines.py#L20">PikaProducer</a> is the <a href="https://github.com/netoferraz/message-producer-scrapy-pipeline/blob/deafcf2e8b5830453630c10668d087c1071ff5e4/wired/wired/pipelines.py#L291">process_item</a> method which wheres resides the logic inside scrapy to manipulate the items collected during the scraping. I have decided to drop all items that for some reason do not have a category assigned or if there is one that not belongs to our defined scope. That way our producer will send a message to the exchange which in turn will forward the message for the queue determined by the routing key assigned in publish message method.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># that chunck of code belongs to PikaProducer class</span>
 <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
     <span class="n">category</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;category&#34;</span><span class="p">)</span>
@@ -352,9 +352,9 @@
 </span><span class="w">        </span>- <span class="m">15672</span><span class="p">:</span><span class="m">15672</span><span class="w">
 </span></code></pre></div><p>To start the RabbiMQ instance we can use: <code>docker-compose up -d rabbitmq</code>. With all set we can navigate to <code>./wired</code> folder and call the command:</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">scrapy crawl newswired
-</code></pre></div><p>As our goal is only test our pipeline in action we&rsquo;ve configured our spider to closes when it reached 500 items collected (<code>CLOSESPIDER_ITEMCOUNT=500</code>). After the run finished we can access http://localhost:15672/#/queues thourgh the browser and and will appear the numbers of messages received by each queue.</p>
+</code></pre></div><p>As our goal is only test our pipeline in action. Thus we&rsquo;ve configured our spider to closes when it reached 500 items collected (<code>CLOSESPIDER_ITEMCOUNT=500</code>). So, after the run finished we can access http://localhost:15672/#/queues thourgh the browser and and will appear the numbers of messages received by each queue.</p>
 <p><img src="/message_producer/rabbitmq_queue.png" alt="message_queue"></p>
-<p>Assim we&rsquo;ve  tested our message producer connected to a scrapy pipeline. Thus, in a near future we could bring to this blog perhaps one consumer for this toy project. What do you think? I hope you have enjoyed this blog post. See you next time! 🤓</p>
+<p>Thus we&rsquo;ve tested our message producer connected to a scrapy pipeline. Thus, in a near future we could bring to this blog perhaps one message consumer for this toy project. What do you think? I hope you have enjoyed this blog post. See you next time! 🤓</p>
 </div>
         <div class="post-footer">
             <div class="info">
@@ -374,6 +374,13 @@
 <script type="text/javascript"
         src="/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
         integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
-        crossorigin="anonymous"></script></body>
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
 
 </html>

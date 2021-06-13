@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | Serverless Web Scraping </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.80.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.cdaea5f5e29f083a610e858ff29054b15a7a2b5820a8c97cd65cfa231649e180.css"
+        integrity="sha256-za6l9eKfCDphDoWP8pBUsVp6K1ggqMl81lz6IxZJ4YA="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.cc84ed683057cc175ddfa738ea6ba2d5c882b95cb64f50bf9be918cb3791887b.css"
+        integrity="sha256-zITtaDBXzBdd36c46mui1ciCuVy2T1C/m&#43;kYyzeRiHs="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/serverless-scrapy/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.d8599ee07b7d3f11bafbac30657ccc591e8d7fd36a9f580cd4c09e24e0e4a971.js"
+            integrity="sha256-2Fme4Ht9PxG6&#43;6wwZXzMWR6Nf9Nqn1gM1MCeJODkqXE="
+            crossorigin="anonymous"></script>
+
+
+    
+        
+        
+        <script type="text/javascript"
+                src="/js/anatole-theme-switcher.min.2c507695a28320822cee065375387eac9bc9f3dfd49d4dcf84bbaca2b8efb30c.js"
+                integrity="sha256-LFB2laKDIIIs7gZTdTh&#43;rJvJ89/UnU3PhLusorjvsww="
+                crossorigin="anonymous"></script>
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Serverless Web Scraping"/>
+<meta name="twitter:description" content="1. Introduction I have past the last several years learning about the data science field as well as software development techniques."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2021 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+            <li class="theme-switch-item">
+                <a class="theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>Serverless Web Scraping</h3>
+                
+            </div>
+
+            <h1 id="1-introduction">1. Introduction</h1>
+<p>I have past the last several years learning about the data science field as well as software development techniques. However, is remarkable how cloud services are revolutionized how we&rsquo;re working with technology in the last decade. Moreover, the several options of services to deploy apps in a fully managed way are remarkable. <a href="https://cloud.google.com/">Google Cloud Platform</a> has a service called <a href="https://cloud.google.com/run">Cloud Run</a> which offers a serverless deployment based on containers that can scale in response to their use.</p>
+<p>That&rsquo;s said I&rsquo;ve wondered how could a web scraper benefit from these services. First of all, many scrapers don&rsquo;t run 24/7 and thus their host machines may not be being used optimally in terms of saving resources and thus money. We could think of other scenarios when a serverless deployment could fit with a web scraper, but let&rsquo;s focus on our project for now.</p>
+<h1 id="2-web-crawler">2. Web Crawler</h1>
+<p>There is a amazing project called <a href="https://basedosdados.github.io/mais/">base dos dados</a> which built a public data lake with data from several resources and I&rsquo;m very excited to collaborate with them. For this purpose, I&rsquo;ve decided to build a web scraper to collect data from fuel stations in Brazil available on this <a href="https://postos.anp.gov.br/">site</a>. Thus, this will be our toy project to evaluate a serverless architecture for scrapy project.</p>
+<h2 id="21-design-our-spider">2.1 Design our spider</h2>
+<p>Analyzing our site, we&rsquo;ve conclude that it could be divided in three parts.</p>
+<h3 id="211-home">2.1.1 Home</h3>
+<p>This is the home, where we can submit a form to query our search.</p>
+<p><img src="/serverless_scrapy/front_page.png" alt="frontpage"></p>
+<h3 id="212-results">2.1.2 Results</h3>
+<p>Our query on the home page - when occurs successfully - brings to this page, where are listed the results.</p>
+<p><img src="/serverless_scrapy/results.png" alt="frontpage"></p>
+<h3 id="213-details">2.1.3 Details</h3>
+<p>Each one of the results listed in the results page has a page with information details, which is our target in this web scraping.</p>
+<p><img src="/serverless_scrapy/details.png" alt="frontpage"></p>
+<h2 id="22-architecture">2.2 Architecture</h2>
+<p>We&rsquo;re going to divide responsibilities in this web scraping. Our first <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/546fab24198f28be3f9ea589587d431659c12a1c/fuelstations/fuelstations/spiders/task_maker.py#L9">spider</a> (<code>TaskMakerSpider</code>) will be in charge to make a POST request for the form located on the home page and then collect all parameters necessary to make a request to the details page. Our second duty is to collect all data available in details page, for that we&rsquo;re built a second spider called <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/546fab24198f28be3f9ea589587d431659c12a1c/fuelstations/fuelstations/spiders/details.py#L10">FacilityDetailsSpider</a>.</p>
+<p>Our next goal was to build an <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/main/fuelstations/main.py">API</a> to initiate these crawlers. We&rsquo;ve used <a href="https://fastapi.tiangolo.com/">fastapi</a> for that and we created two endpoints that initiate each one of our crawlers. You may look below for more details the <code>/details</code> endpoint.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nd">@crochet.run_in_reactor</span>
+<span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/details&#34;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">collect_details</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">PubSubMessage</span><span class="p">):</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">message</span>
+    <span class="c1"># base64</span>
+    <span class="n">b64payload</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">)</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">b64payload</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">))</span>
+    <span class="n">codes</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;codes&#34;</span><span class="p">)</span>
+    <span class="n">uf</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;uf&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">codes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;codes not found.&#34;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">uf</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&#34;uf not found.&#34;</span><span class="p">)</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="n">get_project_settings</span><span class="p">()</span>
+    <span class="n">settings_module_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;SCRAPY_ENV&#34;</span><span class="p">,</span> <span class="s2">&#34;fuelstations.settings&#34;</span><span class="p">)</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">setmodule</span><span class="p">(</span><span class="n">settings_module_path</span><span class="p">)</span>
+    <span class="n">configure_logging</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">runner</span> <span class="o">=</span> <span class="n">crawler</span><span class="o">.</span><span class="n">CrawlerRunner</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">crawl</span><span class="p">(</span><span class="n">FacilityDetailsSpider</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s2">&#34;codes&#34;</span><span class="p">:</span> <span class="n">codes</span><span class="p">,</span> <span class="s2">&#34;uf&#34;</span><span class="p">:</span> <span class="n">uf</span><span class="p">})</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;FacilityDetailsSpider has started.&#34;</span><span class="p">}</span>
+</code></pre></div><p>With those two endpoints available we finally can define our last pieces of this project. We&rsquo;re going to use <a href="https://cloud.google.com/scheduler">Cloud Scheduler</a> to make a POST request for the endpoint <code>/taskmaker</code> which will be hosted in Cloud Run service. Once <code>TaskMakerSpider</code> finishes his run it will send a payload to a topic (<code>fuel-station-data</code>) on <a href="https://cloud.google.com/pubsub">PubSub</a>. We&rsquo;ve configured a push subscription (<code>fuel-station-data-sub</code>) on this topic to forward every message received to the endpoint <code>/details</code> hosted as well in Cloud Run. Finally, our last milestone was to save your collected data into a table in <a href="https://cloud.google.com/bigquery">Big Query</a>.</p>
+<p><img src="/serverless_scrapy/scrapy_serverless.png" alt="architecture"></p>
+<p>It worth mentioning that a call to a service hosted in Cloud Run should be done its job in <a href="https://cloud.google.com/run/docs/configuring/request-timeout">less than 15 minutes</a>. For ensuring that constraints we&rsquo;ve defined that <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/aa63e639552c53c3daa57e78ed2edb15b7073e00/fuelstations/fuelstations/spiders/task_maker.py#L9">TaskMakerSpider</a> will split every group of parameters that will be sent to PubSub topic in chunks of 25, in this way we guarantee that <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/aa63e639552c53c3daa57e78ed2edb15b7073e00/fuelstations/fuelstations/spiders/details.py#L10">FacilityDetailsSpider</a> will be in charge to visit up to 25 URLs.</p>
+<h3 id="221-scrapy-pipelines">2.2.1 Scrapy Pipelines</h3>
+<p><code>TaskMakerSpider</code> needs to send data collected on the results page to a PubSub topic. For that we&rsquo;ve built <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/546fab24198f28be3f9ea589587d431659c12a1c/fuelstations/fuelstations/pipelines.py#L17">PubSubPublisher</a> a <a href="https://docs.scrapy.org/en/latest/topics/item-pipeline.html">ItemPipeline</a> to accomplish that.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">PubSubPublisher</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">topic_id</span><span class="p">,</span> <span class="n">credentials_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">credentials_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">credentials_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">credentials_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_CREDENTIALS_PUBSUB&#34;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&#34;File credentials for PubSub not found.&#34;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&#34;GOOGLE_APPLICATION_CREDENTIALS&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">credentials_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="n">project_name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">topic_id</span> <span class="o">=</span> <span class="n">topic_id</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">project_name</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_PROJECT_ID&#34;</span><span class="p">),</span>
+            <span class="n">topic_id</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;PUBSUB_TOPIC_ID&#34;</span><span class="p">),</span>
+            <span class="n">credentials_path</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_CREDENTIALS_PUBSUB&#34;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span> <span class="o">=</span> <span class="n">pubsub_v1</span><span class="o">.</span><span class="n">PublisherClient</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topic_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">topic_path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">topic_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">ItemAdapter</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">publisher</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">topic_path</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&#34;task_maker&#34;</span><span class="p">)</span>
+        <span class="n">_id</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&#34;Message {_id} has sent for topic {self.topic_id}.&#34;</span><span class="p">)</span>
+</code></pre></div><p>Our data collected on the details page by <code>FacilityDetailsSpider</code> has needed to be sent to Big Query, for that we&rsquo;ve built <a href="https://github.com/netoferraz/serverless-scrapy-project/blob/546fab24198f28be3f9ea589587d431659c12a1c/fuelstations/fuelstations/pipelines.py#L47">BQIngestor</a> which is another <a href="https://docs.scrapy.org/en/latest/topics/item-pipeline.html">ItemPipeline</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">BQIngestor</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">bq_table</span><span class="p">,</span> <span class="n">credentials_path</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">credentials_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">credentials_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">credentials_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_CREDENTIALS_BQ&#34;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&#34;File credentials not found.&#34;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&#34;GOOGLE_APPLICATION_CREDENTIALS&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">credentials_file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">project_name</span> <span class="o">=</span> <span class="n">project_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bq_table</span> <span class="o">=</span> <span class="n">bq_table</span>
+
+    <span class="k">def</span> <span class="nf">open_spider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bq_client</span> <span class="o">=</span> <span class="n">bigquery</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project_name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_crawler</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">crawler</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">project_name</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_PROJECT_ID&#34;</span><span class="p">),</span>
+            <span class="n">bq_table</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;BQ_TABLE&#34;</span><span class="p">),</span>
+            <span class="n">credentials_path</span><span class="o">=</span><span class="n">crawler</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;GCP_CREDENTIALS_BQ&#34;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">spider</span><span class="p">):</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">ItemAdapter</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="o">.</span><span class="n">asdict</span><span class="p">()</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">[</span><span class="n">payload</span><span class="p">]</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bq_client</span><span class="o">.</span><span class="n">insert_rows_json</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bq_table</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">row_ids</span><span class="o">=</span><span class="p">[</span><span class="bp">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">errors</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="n">f</span><span class="s2">&#34;We&#39;ve scraped sucessly data for fuel station {item.get(&#39;cnpj&#39;)}.&#34;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="s2">&#34;Encountered errors while inserting rows: {}&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">spider</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+</code></pre></div><h2 id="23-dockerizing">2.3 Dockerizing</h2>
+<p>We’ve created a Dockerfile to containerize our application and start-up our API.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Dockerfile" data-lang="Dockerfile"><span class="k">FROM</span><span class="s"> python:3.7.9-slim-buster as base</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /app</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">FROM</span><span class="s"> base as builder</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">ARG</span> <span class="nv">LOCAL_USER_ID</span><span class="o">=</span><span class="m">1000</span>
+<span class="k">ENV</span> <span class="nv">PORT</span><span class="o">=</span><span class="m">8000</span>
+
+<span class="k">ENV</span> <span class="nv">PIP_DEFAULT_TIMEOUT</span><span class="o">=</span><span class="m">100</span> <span class="se">\
+</span><span class="se"></span>    <span class="nv">PIP_DISABLE_PIP_VERSION_CHECK</span><span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    <span class="nv">PIP_NO_CACHE_DIR</span><span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    <span class="nv">PYTHONFAULTHANDLER</span><span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    <span class="nv">PYTHONHASHSEED</span><span class="o">=</span>random <span class="se">\
+</span><span class="se"></span>    <span class="nv">PYTHONUNBUFFERED</span><span class="o">=</span><span class="m">1</span> <span class="se">\
+</span><span class="se"></span>    <span class="nv">GCP_PROJECT_ID</span><span class="o">=</span>postos-anp<span class="se">\
+</span><span class="se"></span>    <span class="nv">GCP_CREDENTIALS_BQ</span><span class="o">=</span>./fuelstations/credentials/credentials.json<span class="se">\
+</span><span class="se"></span>    <span class="nv">GCP_CREDENTIALS_PUBSUB</span><span class="o">=</span>./fuelstations/credentials/pubsub_credentials.json<span class="se">\
+</span><span class="se"></span>    <span class="nv">GCP_BQ_TABLE</span><span class="o">=</span>postos_anp.staging_postos_anp<span class="se">\
+</span><span class="se"></span>    <span class="nv">GCP_PUBSUB_TOPIC_ID</span><span class="o">=</span>fuel-station-data<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> adduser --system -u <span class="si">${</span><span class="nv">LOCAL_USER_ID</span><span class="k">:-</span><span class="nv">1000</span><span class="si">}</span> crawler <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    apt-get -qq -y install curl  <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>    apt-get install -y gnupg2<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> requirements.txt ./<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> pip install -r requirements.txt<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> . .<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> chown crawler /app<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">USER</span><span class="s"> crawler</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">EXPOSE</span><span class="s"> ${PORT}</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">CMD</span> <span class="nb">exec</span> uvicorn --host 0.0.0.0 --port <span class="si">${</span><span class="nv">PORT</span><span class="si">}</span> main:app<span class="err">
+</span></code></pre></div><p>Our next goal is to create a docker image and push it to <a href="https://cloud.google.com/container-registry">Cloud Registry</a>. The following commands shows the Makefile that we built to do it.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile" data-lang="Makefile"><span class="nv">APPNAME</span>   <span class="o">=</span> postos_anp_crawler
+<span class="nv">VERSION</span>   <span class="o">=</span> 0.5.3
+<span class="nv">PROJECT</span>   <span class="o">=</span> postos-anp
+
+<span class="nf">publish</span><span class="o">:</span>
+	@sudo docker build <span class="se">\
+</span><span class="se"></span>        -t <span class="si">${</span><span class="nv">APPNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span> . <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>	docker tag <span class="si">${</span><span class="nv">APPNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span> gcr.io/<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">APPNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span> <span class="o">&amp;&amp;</span> <span class="se">\
+</span><span class="se"></span>	docker push gcr.io/<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>/<span class="si">${</span><span class="nv">APPNAME</span><span class="si">}</span>:<span class="si">${</span><span class="nv">VERSION</span><span class="si">}</span>
+
+
+<span class="nf">git-release</span><span class="o">:</span>
+	git add .
+	git commit -m <span class="s2">&#34;v</span><span class="k">$(</span>VERSION<span class="k">)</span><span class="s2">&#34;</span>
+	git tag v<span class="k">$(</span>VERSION<span class="k">)</span>
+	git push
+	git push --tags
+</code></pre></div><p>With that done, we&rsquo;ll push this image to Container Registry.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">make publish
+</code></pre></div><p><img src="/serverless_scrapy/cloud_registry.png" alt="cloud_registry"></p>
+<h2 id="24-initiator">2.4 Initiator</h2>
+<p>To continue our work we need to configure a <a href="https://cloud.google.com/iam/docs/service-accounts">service account</a> with <code>Cloud Run Invoker</code> <a href="https://cloud.google.com/run/docs/reference/iam/roles">role</a>. We&rsquo;ve done that and named it <code>fuel-station-crawler-initiator</code>.</p>
+<p><img src="/serverless_scrapy/service_acc_1.png" alt="service_account">
+<img src="/serverless_scrapy/service_acc_2.png" alt="service_account"></p>
+<h2 id="25-deploy">2.5 Deploy</h2>
+<h2 id="251-cloud-run">2.5.1 Cloud Run</h2>
+<p>We&rsquo;re going to use Cloud Run to deploy our API. For that, we must define a service name and pick up a region to host our service.</p>
+<p><img src="/serverless_scrapy/cloud_run_p1.png" alt="cloud_run"></p>
+<p>Then we select which image hosted on Cloud Registry we want to use.</p>
+<p><img src="/serverless_scrapy/cloud_run_p2.png" alt="cloud_run"></p>
+<p>Furthermore, we need to set up which port will be exposed by Cloud Run and this one must match the same port defined in Dockerfile.</p>
+<p><img src="/serverless_scrapy/cloud_run_p3.png" alt="cloud_run"></p>
+<p>And then we need to set up which service account will be used to make calls to our service.</p>
+<p><img src="/serverless_scrapy/cloud_run_p6.png" alt="cloud_run"></p>
+<p>It&rsquo;s worth mentioning that we could benefit from the <a href="https://github.com/ahmetb/cloud-run-faq#does-cloud-run-have-cold-starts">cold start</a> option offered by Cloud Run, in that way we will not be charged when this application doesn&rsquo;t run. To use that option we need to set Minimum number of instances equal to 0.</p>
+<p><img src="/serverless_scrapy/cloud_run_p4.png" alt="cloud_run"></p>
+<p>Finally, we set up that will be needed authentication to access our application.</p>
+<p><img src="/serverless_scrapy/cloud_run_p5.png" alt="cloud_run"></p>
+<h3 id="252-cloud-scheduler">2.5.2 Cloud Scheduler</h3>
+<p>We&rsquo;re going to create a schedule to collect every fuel station data for each federation unit of Brazil. The following example shows how to do it for collecting fuel station data belongs to Maranhão state.</p>
+<p><img src="/serverless_scrapy/cloud_scheduler_1.png" alt="cloud_scheduler">
+<img src="/serverless_scrapy/cloud_scheduler_2.png" alt="cloud_scheduler">
+<img src="/serverless_scrapy/cloud_scheduler_3.png" alt="cloud_scheduler"></p>
+<h3 id="253-pubsub">2.5.3 PubSub</h3>
+<p>After we&rsquo;ve created a PubSub topic we need to configure a push subscription for this topic.<br>
+<img src="/serverless_scrapy/pubsub_subscription.png" alt="pubsub_subscription"></p>
+<h1 id="3-trigger-our-crawlers">3. Trigger our crawlers</h1>
+<p>With all these configurations done, we can initiate our spiders through Cloud Scheduler. Along our crawlers are running we can use <a href="https://cloud.google.com/logging">Cloud Logging</a> to monitoring their working.
+<img src="/serverless_scrapy/cloud_logging.png" alt="cloud_logging"></p>
+<p>Finally, in any time we can query our table in <a href="https://cloud.google.com/bigquery">Big Query</a> to inspect the data collected.
+<img src="/serverless_scrapy/big_query.png" alt="big_query"></p>
+<h1 id="4-conclusion">4. Conclusion</h1>
+<p>WoW! That was a long run to conclude this project! But I was very satisfied! I hope you enjoy it as well. If you reached here, I very thankful to you and if you desire to talk about this project or related stuff don&rsquo;t think twice, reach me soon as possible! 🤓</p>
+<p><strong>Github</strong>: <a href="https://github.com/netoferraz/serverless-scrapy-project">Serverless Scrapy</a></p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/scraping/">scraping</a><a class="tag" href="/tags/scrapy/">scrapy</a><a class="tag" href="/tags/docker/">docker</a><a class="tag" href="/tags/serverless/">serverless</a><a class="tag" href="/tags/gcp/">gcp</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.92f21c856129f84aeb719459b3e6ac621a3032fd7b180a18c04e1d12083f8aba.js"
+        integrity="sha256-kvIchWEp&#43;ErrcZRZs&#43;asYhowMv17GAoYwE4dEgg/iro="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>

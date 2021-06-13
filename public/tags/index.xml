@@ -1,45 +1,72 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Website of Jane Doe</title>
-    <link>https://example.com/tags/</link>
-    <description>Recent content in Tags on Website of Jane Doe</description>
+    <title>Tags on jungleboy blog</title>
+    <link>https://jungleboy.netlify.app/tags/</link>
+    <description>Recent content in Tags on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 May 2021 10:52:55 -0300</lastBuildDate><atom:link href="https://example.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Jun 2021 13:33:23 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>rabbitmq</title>
-      <link>https://example.com/tags/rabbitmq/</link>
-      <pubDate>Thu, 27 May 2021 10:52:55 -0300</pubDate>
+      <title>docker</title>
+      <link>https://jungleboy.netlify.app/tags/docker/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
       
-      <guid>https://example.com/tags/rabbitmq/</guid>
+      <guid>https://jungleboy.netlify.app/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gcp</title>
+      <link>https://jungleboy.netlify.app/tags/gcp/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/gcp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scraping</title>
-      <link>https://example.com/tags/scraping/</link>
-      <pubDate>Thu, 27 May 2021 10:52:55 -0300</pubDate>
+      <link>https://jungleboy.netlify.app/tags/scraping/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
       
-      <guid>https://example.com/tags/scraping/</guid>
+      <guid>https://jungleboy.netlify.app/tags/scraping/</guid>
       <description></description>
     </item>
     
     <item>
       <title>scrapy</title>
-      <link>https://example.com/tags/scrapy/</link>
+      <link>https://jungleboy.netlify.app/tags/scrapy/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/scrapy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>serverless</title>
+      <link>https://jungleboy.netlify.app/tags/serverless/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/serverless/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rabbitmq</title>
+      <link>https://jungleboy.netlify.app/tags/rabbitmq/</link>
       <pubDate>Thu, 27 May 2021 10:52:55 -0300</pubDate>
       
-      <guid>https://example.com/tags/scrapy/</guid>
+      <guid>https://jungleboy.netlify.app/tags/rabbitmq/</guid>
       <description></description>
     </item>
     
     <item>
       <title>performance</title>
-      <link>https://example.com/tags/performance/</link>
+      <link>https://jungleboy.netlify.app/tags/performance/</link>
       <pubDate>Sat, 15 May 2021 07:52:32 -0300</pubDate>
       
-      <guid>https://example.com/tags/performance/</guid>
+      <guid>https://jungleboy.netlify.app/tags/performance/</guid>
       <description></description>
     </item>
     
