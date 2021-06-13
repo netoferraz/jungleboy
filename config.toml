@@ -11,7 +11,7 @@ enableEmoji = true
 enableRobotsTXT = true
 
 # Enable Disqus
-#disqusShortname = ""
+disqusShortname = "oeuanalitico"
 
 # Google Analytics
 #googleAnalytics = ""
