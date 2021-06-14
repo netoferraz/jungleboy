@@ -27,7 +27,7 @@ author = "José Ferraz Neto"
 description = "Born in a jungle and living in a world of data."
 profilePicture = "/profile.png"
 gtagId = "G-3ET97GCNPG"
-
+disableThemeSwitcher = true
 [[params.socialIcons]]
 icon = "fab fa-github"
 title = "Github"
