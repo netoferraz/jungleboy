@@ -1,74 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
+    <loc>https://jungleboy.netlify.app/tags/billing/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/data-lake/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/gcp/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/scraping/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/reducing-google-storage-billing/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/load-testing/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/ml_loadtest/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/locust/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/machine-learning/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/mlops/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/python/</loc>
+    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/docker/</loc>
     <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/tags/gcp/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/posts/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/tags/scraping/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/serverless/</loc>
     <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/posts/serverless-scrapy/</loc>
     <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
-    <lastmod>2021-06-11T13:33:23-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/posts/messaging-scrapy-pipeline/</loc>
     <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/rabbitmq/</loc>
     <lastmod>2021-05-27T10:52:55-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/posts/analyzing-pipelines-performance/</loc>
     <lastmod>2021-05-15T07:52:32-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/performance/</loc>
     <lastmod>2021-05-15T07:52:32-03:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://jungleboy.netlify.app/categories/</loc>
   </url>
-  
 </urlset>

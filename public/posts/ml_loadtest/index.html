@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | Load testing a machine learning model </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.bc9c6feb1dc21ca10380089a3cf98f7f0c9229eea1c73bacf720f371960f4d4c.css"
+        integrity="sha256-vJxv6x3CHKEDgAiaPPmPfwySKe6hxzus9yDzcZYPTUw="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/ml_loadtest/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+            integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ="
+            crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Load testing a machine learning model"/>
+<meta name="twitter:description" content="1. Introduction In the last couple of years, I have seen a shift in the data science content that had been published on the web from more introductory content, like how algorithms works, model training, validation process, to one about how models behave in the real world."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>Load testing a machine learning model</h3>
+                
+            </div>
+
+            <h1 id="1-introduction">1. Introduction</h1>
+<p>In the last couple of years, I have seen a shift in the data science content that had been published on the web from more introductory content, like how algorithms works, model training, validation process, to one about how models behave in the real world. When I have thought about machine learning in production some disciplines come to mind, like continuous integration, deployment strategies, monitoring, and performance, for instance.</p>
+<p>Nowadays one bright new field is growing called machine learning operations (MLOps) that aim to group a set of best practices from DevOps culture to better deploy and maintain machine learning models in production reliably.</p>
+<p>Monitoring machine learning models in production is one the most important things to do to ensure that a model will perform like expected. And for monitoring, we traditionally keep tracking performance metrics.</p>
+<p>When we talk about model performance, we could divide it into two main categories, the first one is called functional that groups subjects about how well a model performs in the task that&rsquo;s it was trained, usually measured in some metric defined by the data scientist who trained it. The other is called non-functional, which concerns machine learning operations. For the latter, a common task is to perform load testing in a deployed model, along with this test we will evaluate how well the model could perform in terms of response capacity in different levels of server load. In other words, a trained model needs to have a certain minimum of accuracy (functional characteristic), as well as has a low latency when it is called (non-functional characteristic).</p>
+<p>In this post, we&rsquo;ll train a simple model to predict a taxi price fare in new york city and perform load testing to evaluate its performance.</p>
+<h1 id="2-model">2. Model</h1>
+<p>In July 2018 Kaggle hosted a competition that aims to train a machine learning model to predict a Taxi Fare from New York city. We&rsquo;ll use the dataset provided by this competition to train a simple model to perform our load testing. There are a lot of nice notebooks in the public leaderboard of this competition that we could use for our purpose. After I&rsquo;ve analyzed several options available there and I&rsquo;ve decided to use one shared by DJ Sterling.</p>
+<p>This model will rely on the initial position of the customer (pickup position) as well as the destination of the trip (drop-off position).</p>
+<h2 id="21-training-the-model">2.1 Training the model</h2>
+<p>Now we&rsquo;re going to present two functions that was used to train the linear model.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">get_input_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;Stack our features into a numpy nd-array to train a model. &#34;&#34;&#34;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">abs_diff_longitude</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">abs_diff_latitude</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)))</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">train_linear_model</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s2">&#34;&#34;&#34; A auxiliary function to train a model and serialize it &#34;&#34;&#34;</span>
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">f</span><span class="s1">&#39;./data/{settings.get(&#34;dataset.nyc_fare_train_dataset&#34;, &#34;train.csv.zip&#34;)}&#39;</span><span class="p">,</span>
+        <span class="n">nrows</span><span class="o">=</span><span class="mi">10_000_000</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&#34;any&#34;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&#34;rows&#34;</span><span class="p">)</span>
+    <span class="c1"># exclude some datapoints outside an acceptable geographical range</span>
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+        <span class="n">train_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;pickup_longitude&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;pickup_longitude&#34;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span>
+        <span class="n">train_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;dropoff_longitude&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">80</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;dropoff_latitude&#34;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">)</span>
+    <span class="c1">#create some features</span>
+    <span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;abs_diff_longitude&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">train_df</span><span class="o">.</span><span class="n">dropoff_longitude</span> <span class="o">-</span> <span class="n">train_df</span><span class="o">.</span><span class="n">pickup_longitude</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+    <span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;abs_diff_latitude&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">train_df</span><span class="o">.</span><span class="n">dropoff_latitude</span> <span class="o">-</span> <span class="n">train_df</span><span class="o">.</span><span class="n">pickup_latitude</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+
+    <span class="n">train_df</span> <span class="o">=</span> <span class="n">train_df</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">train_df</span><span class="o">.</span><span class="n">abs_diff_longitude</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">train_df</span><span class="o">.</span><span class="n">abs_diff_latitude</span> <span class="o">&lt;</span> <span class="mf">5.0</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">train_X</span> <span class="o">=</span> <span class="n">get_input_matrix</span><span class="p">(</span><span class="n">train_df</span><span class="p">)</span>
+    <span class="n">train_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">train_df</span><span class="p">[</span><span class="s2">&#34;fare_amount&#34;</span><span class="p">])</span>
+
+    <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+    <span class="c1">#saving model weights to use on model prediction step</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;./artifacts/weights.pkl&#34;</span><span class="p">,</span> <span class="s2">&#34;wb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+</code></pre></div><h2 id="22-expose-our-model">2.2 Expose our model</h2>
+<p>To access model predictions we&rsquo;ll expose it through an endpoint and for that we created a simple server with fastapi.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># api.py</span>
+<span class="kn">import</span> <span class="nn">uvicorn</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">artifacts</span> <span class="kn">import</span> <span class="n">lmodel_weights</span> <span class="c1"># load model weights </span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="c1"># pydantic model schema</span>
+<span class="k">class</span> <span class="nc">RideInfo</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">pickup_datetime</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">pickup_longitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">pickup_latitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">dropoff_longitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">dropoff_latitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">passenger_count</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@app.post</span><span class="p">(</span><span class="s2">&#34;/predict&#34;</span><span class="p">)</span>
+<span class="n">async</span> <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">ride_info</span><span class="p">:</span> <span class="n">RideInfo</span><span class="p">):</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">ride_info</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+    <span class="n">abs_diff_longitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+        <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;pickup_longitude&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;dropoff_longitude&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">abs_diff_latitude</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
+        <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;pickup_latitude&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;dropoff_latitude&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">abs_diff_longitude</span><span class="p">,</span> <span class="n">abs_diff_latitude</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lmodel_weights</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">prediction</span><span class="p">}</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8000</span><span class="p">)</span>
+</code></pre></div><h1 id="3-load-testing">3. Load testing</h1>
+<p>There are several frameworks to perform load testing available out there. For our experiment, we&rsquo;ll use locust, which is an open-source tool built in python and very easy to use. Locust provides a rough idea of how many requests per second (RPS) our application can handle.</p>
+<h2 id="31-fake-data">3.1 Fake Data</h2>
+<p>Our model is exposed through a post request and for that will be required to send a payload with the following fields: <code>id</code>, <code>pickup_datetime</code>, <code>pickup_longitude</code>, <code>pickup_latitude</code>, <code>dropoff_longitude</code>, <code>dropoff_latitude</code> and <code>passenger_count</code>.</p>
+<p>We&rsquo;ll use mimesis to generate fake data for us based on a schema that we&rsquo;ve defined.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#gendata.py</span>
+<span class="kn">from</span> <span class="nn">mimesis.schema</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Schema</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># arbiratry bounding box for NYC</span>
+<span class="c1"># http://bboxfinder.com/#40.543026,-74.084930,40.949825,-73.561707</span>
+
+<span class="n">MAX_NYC_LATITUDE</span> <span class="o">=</span> <span class="mf">40.949825</span>
+<span class="n">MIN_NYC_LATITUDE</span> <span class="o">=</span> <span class="mf">40.543026</span>
+<span class="n">MAX_NYC_LONGITUDE</span> <span class="o">=</span> <span class="o">-</span><span class="mf">73.561707</span>
+<span class="n">MIN_NYC_LONGITUDE</span> <span class="o">=</span> <span class="o">-</span><span class="mf">74.084930</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="s2">&#34;en&#34;</span><span class="p">)</span>
+<span class="c1"># DATA SCHEMA</span>
+<span class="n">description</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&#34;id&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&#34;uuid&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;pickup_datetime&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;datetime.formatted_datetime&#34;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">2015</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;pickup_longitude&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;numbers.float_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">MIN_NYC_LONGITUDE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">MAX_NYC_LONGITUDE</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;pickup_latitude&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;numbers.float_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">MIN_NYC_LATITUDE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">MAX_NYC_LATITUDE</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;dropoff_longitude&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;numbers.float_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">MIN_NYC_LONGITUDE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">MAX_NYC_LONGITUDE</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;dropoff_latitude&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;numbers.float_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">MIN_NYC_LATITUDE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">MAX_NYC_LATITUDE</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;passenger_count&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span>
+        <span class="s2">&#34;numbers.float_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">MIN_NYC_LATITUDE</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">MAX_NYC_LATITUDE</span>
+    <span class="p">),</span>
+    <span class="s2">&#34;passenger_count&#34;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&#34;numbers.integer_number&#34;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">gen_payload</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    A helper generator to produce valid data.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">schema</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">gen_invalid_payload</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    A helper generator to produce invalid data (data with missing fields).
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">payload</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">payload</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="n">payload</span>
+
+</code></pre></div><h2 id="32-locust-script">3.2 Locust Script</h2>
+<p>To prepare our load testing with locust we&rsquo;ll need to prepare a script that has a class that inherits from HttpUser class from locust to configure our test.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># random.py</span>
+<span class="kn">from</span> <span class="nn">locust</span> <span class="kn">import</span> <span class="n">HttpUser</span><span class="p">,</span> <span class="n">between</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span> <span class="nn">data</span> <span class="kn">import</span> <span class="n">gen_payload</span><span class="p">,</span> <span class="n">gen_invalid_payload</span>
+
+
+<span class="k">class</span> <span class="nc">RandomizedTaxiUser</span><span class="p">(</span><span class="n">HttpUser</span><span class="p">):</span>
+
+    <span class="c1"># wait between requests from one user for between 1 and 5 seconds.</span>
+    <span class="n">wait_time</span> <span class="o">=</span> <span class="n">between</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">payloads</span> <span class="o">=</span> <span class="n">gen_payload</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">invalid_payload</span> <span class="o">=</span> <span class="n">gen_invalid_payload</span><span class="p">()</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_valid_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        This function will test a valid payload.
+</span><span class="s2">        &#34;&#34;&#34;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">payloads</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&#34;/predict&#34;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_invalid_payload</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;This function will test a invalid payload.&#34;&#34;&#34;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">invalid_payload</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="s2">&#34;/predict&#34;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">catch_response</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">422</span><span class="p">:</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">failure</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s2">&#34;Wrong response. Expected status code 422, &#34;</span>
+                    <span class="n">f</span><span class="s2">&#34;got {response.status_code}&#34;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">success</span><span class="p">()</span>
+
+</code></pre></div><p>In our <code>RandomizedTaxiUser</code> class, we&rsquo;ve created two functions that will be tested under the test. Each one of them has a decorator (which assign that function to be a task for our test) and may receive a number that informs the fraction of requests that will be sent to each one of them. Thus, <code>test_valid_payload</code> will be receive 5 times more requests than <code>test_invalid_payload</code>.</p>
+<h2 id="33-setup">3.3 Setup</h2>
+<p>First and foremost we&rsquo;ll start our api and the locust server.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">python api.py
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">locust -f ./tests/locust/random.py
+</code></pre></div><h2 id="34-starting">3.4 Starting</h2>
+<p>Locust has a nice user interface available through localhost:8089 where we&rsquo;ll finish our setup.</p>
+<p><img src="/locust_ml_loadtest/locust-new-load-test.png" alt="locust_setup"></p>
+<p>Once we hit the <code>start swarming</code> button the test will initiated and it will possible to evaluate our run through several statistics available in the UI.</p>
+<p><img src="/locust_ml_loadtest/locust-dashboard.png" alt="locust_setup"></p>
+<p>Along these stats locust provide to us some charts that are updated thorugh our test.</p>
+<p><img src="/locust_ml_loadtest/locust-charts.png" alt="locust_setup"></p>
+<p>Along with these stats, locust provides some charts that are updated during our test.</p>
+<p>With that, we present some resources to evaluate if the server that your model was deployed can handle the incoming load that your service requires.</p>
+<p>For wrap up if you want to check out the code, you could access this <a href="https://github.com/netoferraz/ml_load_testing">repository</a>.</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/load-testing/">load testing</a><a class="tag" href="/tags/locust/">locust</a><a class="tag" href="/tags/machine-learning/">machine learning</a><a class="tag" href="/tags/python/">python</a><a class="tag" href="/tags/mlops/">mlops</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>

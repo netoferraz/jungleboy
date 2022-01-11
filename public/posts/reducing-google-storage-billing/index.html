@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | Some actions to reduce storage billing nearly 80% at GCS </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.bc9c6feb1dc21ca10380089a3cf98f7f0c9229eea1c73bacf720f371960f4d4c.css"
+        integrity="sha256-vJxv6x3CHKEDgAiaPPmPfwySKe6hxzus9yDzcZYPTUw="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/reducing-google-storage-billing/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+            integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ="
+            crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Some actions to reduce storage billing nearly 80% at GCS"/>
+<meta name="twitter:description" content="Introduction At cotatenis, we&rsquo;re developing a price comparison site for sneakers for Brazilian online stores."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>Some actions to reduce storage billing nearly 80% at GCS</h3>
+                
+            </div>
+
+            <h1 id="introduction">Introduction</h1>
+<p>At <a href="https://www.cotatenis.com/">cotatenis</a>, we&rsquo;re developing a price comparison site for <a href="https://en.wikipedia.org/wiki/Sneakers">sneakers</a> for Brazilian online stores. As usual, this kind of business relies heavily on data collection across several online stores.</p>
+<p>The cost of storage technology has dropped steadily in recent years. Despite that, at this early stage of our business cost always plays a major concern for the health of our company.</p>
+<p>Thus, with that in mind, we have seen our storage costs rapidly rising during our development of the new web crawlers for our platform. That&rsquo;s said, in our data collection stage, we collect all available data for each product that will be stored in our storage.</p>
+<p>In that sneakers data, we have a lot of images for each product, and our first web crawlers were not yet prepared to reduce storage costs. For instance, in each spider run, we saved all pictures for each product that already exists or not in our database.</p>
+<p>Our data lake currently is hosted on GCP and we&rsquo;re using <code>Google Cloud Storage</code> (GCS) to build it. For clarity, at GCS all kinds of actions can be classified into three types:  <strong>Class A</strong>, <strong>Class B</strong>, and <strong>Free operations</strong>.</p>
+<p>I have to inform you that class A operations are the most expensive ones. So, for illustration,  in the standard storage, they cost $0.05 per 10.000 operations, in contrast with the B type that only cost $0.004 per 10.000 operations, which is almost 13 times cheaper.</p>
+<p>For the readers who are willing to learn more about GCS, I strongly recommend the documentation <a href="https://cloud.google.com/storage">here</a>. So, maybe are you asking why I am telling you about this type of operation in GCS, right?</p>
+<p>So, when we save or overwrite any file in GCS we&rsquo;re using a class A operation, which is the most expensive as I told you before. When we looked at our data gathering process our web crawlers are overwriting several files each time they are started and this is far away from optimal in terms of cost management.</p>
+<p>Let&rsquo;s get started to dig into our storage costs at cotatenis. The following picture is our storage bill for October 2021 and we&rsquo;ll use that bill as our starting point for our analysis. We chose that one because it was the last month that we ran our spiders without any modifications for reducing costs.</p>
+<p><img src="/storage_costs/2021_october_storage_cost.png" alt="october_storage_costs"></p>
+<p>As you can see almost 92% of our storage cost is due to class A operations. Hence, is very obvious where we need to look to reduce our storage bill.</p>
+<h1 id="putting-a-magnifier-at-our-codebase">Putting a magnifier at our codebase</h1>
+<p>Here at <a href="https://www.cotatenis.com/">cotatenis</a> we&rsquo;ve built our web crawlers using <a href="https://scrapy.org/">scrapy</a>.</p>
+<p>We&rsquo;ve looked at the parameter <a href="https://docs.scrapy.org/en/latest/topics/media-pipeline.html">IMAGES_EXPIRES</a> that is responsible for avoiding downloading images that were downloaded recently, but for a reason that we&rsquo;re not sure yet when we set up our <code>IMAGES_STORE</code> to Google Cloud Storage, this configuration does not have behaved like expected.</p>
+<p>Thus, we need to customize our code to achieve the desired outcome. The following code was taken from the scrapy source hosted on GitHub. This chunk of code shows the method ´<a href="https://github.com/scrapy/scrapy/blob/b04cfa48328d5d5749dca6f50fa34e0cfc664c89/scrapy/pipelines/images.py#L117">image_downloaded</a> which is responsible to persist an image in the file system indicated in scrapy configuration.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">image_downloaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">checksum</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">checksum</span> <span class="o">=</span> <span class="n">md5sum</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">persist_file</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span>
+            <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">},</span>
+            <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;image/jpeg&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">checksum</span>
+</code></pre></div><p>To achieve our goal we had a simple modification in this method and overwritten it. For the sake of clarity, we only added a file existence verification; if it does not exist, we&rsquo;ll save it. In addition to that, according to this <a href="https://stackoverflow.com/a/59050687">reply</a> on stackoverflow this verification through <code>.exists()</code> is classified as a class B operation, thus much cheaper than we usually do when we overwrite a file (class A).</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">image_downloaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    This modification verifies if the file (blob) already exists in our data lake, if not exists, save it.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">buf</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">checksum</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">buf</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">checksum</span> <span class="o">=</span> <span class="n">md5sum</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+        <span class="c1"># get the blob </span>
+        <span class="n">blob</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">bucket</span><span class="o">.</span><span class="n">blob</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">blob</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span> <span class="c1">#check if this blob already exists</span>
+            <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">store</span><span class="o">.</span><span class="n">persist_file</span><span class="p">(</span>
+                <span class="n">path</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span>
+                <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">width</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">height</span><span class="p">},</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="s1">&#39;image/jpeg&#39;</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">checksum</span>   
+</code></pre></div><p>We&rsquo;d applied this patch into our web crawlers along the first days of November 2021. In the following chart, it&rsquo;s possible to identify our economy due primarily to the reduction of class A operations registered in our billing.</p>
+<p><img src="/storage_costs/2021_october_to_december_storage_cost.png" alt="october_storage_costs"></p>
+<p>To better identify this improvement of our billing costs, I&rsquo;ll split our storage costs by month.</p>
+<ul>
+<li>October (<strong>224.57 BRL</strong>)</li>
+<li>November (<strong>84.37 BRL</strong>)</li>
+<li>December (<strong>49.16 BRL</strong>)</li>
+</ul>
+<p>Our data gathering processing was run along December entirely with this new code that we presented above. Therefore we achieve almost <strong>80%</strong> of reduction in our storage billing in comparison with October which is our baseline.</p>
+<p>I expect you have enjoyed this post as I had during my writing process. So, I hope that you have learned something from this material. See you next time! 🙂</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/billing/">billing</a><a class="tag" href="/tags/gcp/">gcp</a><a class="tag" href="/tags/data-lake/">data lake</a><a class="tag" href="/tags/scrapy/">scrapy</a><a class="tag" href="/tags/scraping/">scraping</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>

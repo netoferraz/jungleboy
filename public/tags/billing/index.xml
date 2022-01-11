@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>billing on jungleboy blog</title>
+    <link>https://jungleboy.netlify.app/tags/billing/</link>
+    <description>Recent content in billing on jungleboy blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 09 Jan 2022 19:32:04 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/billing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Some actions to reduce storage billing nearly 80% at GCS</title>
+      <link>https://jungleboy.netlify.app/posts/reducing-google-storage-billing/</link>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/reducing-google-storage-billing/</guid>
+      <description>Introduction At cotatenis, we&amp;rsquo;re developing a price comparison site for sneakers for Brazilian online stores.</description>
+    </item>
+    
+  </channel>
+</rss>

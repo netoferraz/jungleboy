@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on jungleboy blog</title>
+    <link>https://jungleboy.netlify.app/tags/python/</link>
+    <description>Recent content in python on jungleboy blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 07 Aug 2021 19:09:49 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Load testing a machine learning model</title>
+      <link>https://jungleboy.netlify.app/posts/ml_loadtest/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/ml_loadtest/</guid>
+      <description>1. Introduction In the last couple of years, I have seen a shift in the data science content that had been published on the web from more introductory content, like how algorithms works, model training, validation process, to one about how models behave in the real world.</description>
+    </item>
+    
+  </channel>
+</rss>

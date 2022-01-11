@@ -6,20 +6,29 @@
     <description>Recent content in Tags on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 11 Jun 2021 13:33:23 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jan 2022 19:32:04 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>docker</title>
-      <link>https://jungleboy.netlify.app/tags/docker/</link>
-      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      <title>billing</title>
+      <link>https://jungleboy.netlify.app/tags/billing/</link>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
       
-      <guid>https://jungleboy.netlify.app/tags/docker/</guid>
+      <guid>https://jungleboy.netlify.app/tags/billing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data lake</title>
+      <link>https://jungleboy.netlify.app/tags/data-lake/</link>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/data-lake/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gcp</title>
       <link>https://jungleboy.netlify.app/tags/gcp/</link>
-      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/gcp/</guid>
       <description></description>
@@ -28,7 +37,7 @@
     <item>
       <title>scraping</title>
       <link>https://jungleboy.netlify.app/tags/scraping/</link>
-      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/scraping/</guid>
       <description></description>
@@ -37,9 +46,63 @@
     <item>
       <title>scrapy</title>
       <link>https://jungleboy.netlify.app/tags/scrapy/</link>
-      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/scrapy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>load testing</title>
+      <link>https://jungleboy.netlify.app/tags/load-testing/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/load-testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>locust</title>
+      <link>https://jungleboy.netlify.app/tags/locust/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/locust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine learning</title>
+      <link>https://jungleboy.netlify.app/tags/machine-learning/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mlops</title>
+      <link>https://jungleboy.netlify.app/tags/mlops/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/mlops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://jungleboy.netlify.app/tags/python/</link>
+      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://jungleboy.netlify.app/tags/docker/</link>
+      <pubDate>Fri, 11 Jun 2021 13:33:23 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/docker/</guid>
       <description></description>
     </item>
     
