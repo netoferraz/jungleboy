@@ -6,7 +6,34 @@
     <description>Recent content in Tags on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Jan 2022 19:32:04 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Jan 2022 19:24:43 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>scrapy</title>
+      <link>https://jungleboy.netlify.app/tags/scrapy/</link>
+      <pubDate>Tue, 18 Jan 2022 19:24:43 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/scrapy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web crawling</title>
+      <link>https://jungleboy.netlify.app/tags/web-crawling/</link>
+      <pubDate>Tue, 18 Jan 2022 19:24:43 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/web-crawling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web scraping</title>
+      <link>https://jungleboy.netlify.app/tags/web-scraping/</link>
+      <pubDate>Tue, 18 Jan 2022 19:24:43 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/web-scraping/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>billing</title>
       <link>https://jungleboy.netlify.app/tags/billing/</link>
@@ -31,24 +58,6 @@
       <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/gcp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scraping</title>
-      <link>https://jungleboy.netlify.app/tags/scraping/</link>
-      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
-      
-      <guid>https://jungleboy.netlify.app/tags/scraping/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>scrapy</title>
-      <link>https://jungleboy.netlify.app/tags/scrapy/</link>
-      <pubDate>Sun, 09 Jan 2022 19:32:04 -0300</pubDate>
-      
-      <guid>https://jungleboy.netlify.app/tags/scrapy/</guid>
       <description></description>
     </item>
     

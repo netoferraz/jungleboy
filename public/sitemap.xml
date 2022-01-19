@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jungleboy.netlify.app/posts/customizing-images-filenames/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/web-crawling/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/web-scraping/</loc>
+    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/billing/</loc>
     <lastmod>2022-01-09T19:32:04-03:00</lastmod>
   </url><url>
@@ -11,22 +32,7 @@
     <loc>https://jungleboy.netlify.app/tags/gcp/</loc>
     <lastmod>2022-01-09T19:32:04-03:00</lastmod>
   </url><url>
-    <loc>https://jungleboy.netlify.app/</loc>
-    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/posts/</loc>
-    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/scraping/</loc>
-    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
-    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
-  </url><url>
     <loc>https://jungleboy.netlify.app/posts/reducing-google-storage-billing/</loc>
-    <lastmod>2022-01-09T19:32:04-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
     <lastmod>2022-01-09T19:32:04-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/load-testing/</loc>

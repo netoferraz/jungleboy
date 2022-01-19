@@ -2,7 +2,7 @@
 title: "Serverless Web Scraping"
 date: 2021-06-11T13:33:23-03:00
 draft: false
-tags: [scraping, scrapy, docker, serverless, gcp]
+tags: [web scraping, scrapy, docker, serverless, gcp]
 ---
 
 # 1. Introduction

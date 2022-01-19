@@ -2,7 +2,7 @@
 title: "Some actions to reduce storage billing nearly 80% at GCS"
 date: 2022-01-09T19:32:04-03:00
 draft: false
-tags: [billing, gcp, data lake, scrapy, scraping]
+tags: [billing, gcp, data lake, scrapy, web scraping]
 
 ---
 # Introduction

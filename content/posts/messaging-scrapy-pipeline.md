@@ -2,7 +2,7 @@
 title: "A message Producer for Scrapy Pipeline"
 date: 2021-05-27T10:52:55-03:00
 draft: false
-tags: [scraping, scrapy, rabbitmq]
+tags: [web scraping, scrapy, rabbitmq]
 
 ---
 

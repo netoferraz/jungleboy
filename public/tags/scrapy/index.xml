@@ -6,7 +6,16 @@
     <description>Recent content in scrapy on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 09 Jan 2022 19:32:04 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/scrapy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Jan 2022 19:24:43 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/scrapy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Customizing images filenames when using ImagesPipeline</title>
+      <link>https://jungleboy.netlify.app/posts/customizing-images-filenames/</link>
+      <pubDate>Tue, 18 Jan 2022 19:24:43 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/customizing-images-filenames/</guid>
+      <description>Scrapy is an awesome framework available with batteries included that helps our job done with less friction.</description>
+    </item>
+    
     <item>
       <title>Some actions to reduce storage billing nearly 80% at GCS</title>
       <link>https://jungleboy.netlify.app/posts/reducing-google-storage-billing/</link>

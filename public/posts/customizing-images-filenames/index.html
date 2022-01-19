@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | Customizing images filenames when using ImagesPipeline </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.0" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.bc9c6feb1dc21ca10380089a3cf98f7f0c9229eea1c73bacf720f371960f4d4c.css"
+        integrity="sha256-vJxv6x3CHKEDgAiaPPmPfwySKe6hxzus9yDzcZYPTUw="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/customizing-images-filenames/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+            integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ="
+            crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Customizing images filenames when using ImagesPipeline"/>
+<meta name="twitter:description" content="Scrapy is an awesome framework available with batteries included that helps our job done with less friction."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>Customizing images filenames when using ImagesPipeline</h3>
+                
+            </div>
+
+            <p><a href="https://scrapy.org/">Scrapy</a> is an awesome framework available with batteries included that helps our job done with less friction. However, when you choose to work with a framework you need to follow their rules (choices?) for your code to work properly.</p>
+<p>One of these batteries included mentioned early are <code>Item Pipelines</code>. They are specialized classes that perform actions over items sent by spiders. They could, for instance, make some cleaning process over an item or save it in a database. Thereby, they could do anything you want over these items, and we can organize them to be executed sequentially.</p>
+<p>Scrapy offers an item Pipeline specialized for saving images, <code>ImagePipeline</code>. This Class will come in handy when you need to save images during your web scraping. Before we continue, I strongly recommend those who never worked with Item Pipelines, read the <a href="https://docs.scrapy.org/en/latest/topics/item-pipeline.html">documentation</a>, for further reading.</p>
+<p>When you configure <code>ImagePipeline</code> it is expected that an item sent by a spider needs to have a field name <code>image_urls</code>. This field is a list of URLs of all images that belong to an Item.  For those who are willing to a complete overview of a data flow in Scrapy architecture, I would suggest taking a look at this <a href="https://docs.scrapy.org/en/latest/topics/architecture.html">page</a>. This <a href="https://github.com/scrapy/scrapy/blob/9b8285d98a124bd2e8c1cfe7aecdc1f409768f0e/scrapy/pipelines/images.py#L178">method</a> takes as an argument a Request object and applies a SHA-1 algorithm to create a hash from this URL image and use it to rename the image filename and then save it in the proper filestore. The following code shows how this works.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">image_guid</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">to_bytes</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">url</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">f</span><span class="s1">&#39;full/{image_guid}.jpg&#39;</span>
+</code></pre></div><p>As we understood how Scrapy rename the image filenames, we could overwrite this method and create our custom rule. For instance, we might willing to preserve the original filename for those files. For achieving this behavior, we&rsquo;ll create our custom <code>file_path</code> method.</p>
+<p>For example, to illustrate our understanding, let&rsquo;s consider that we have a URL image like that one: <code>https://www.image123.com/beautiful_sky_in_brazil.png</code></p>
+<p>To save this image with the original filename collected from the source, we need first to split this string by slash, did you agree? Right, let&rsquo;s use this logic inside our custom method.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">item</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">f</span><span class="s2">&#34;{request.url.split(&#39;/&#39;)[-1]}&#34;</span>
+</code></pre></div><p>As simple as likes that 😀. So, now you could use this logic or perhaps create your own rule to rename your images as your business logic implies.  For today we&rsquo;ve done with this tip to improve your web scraping routines. See you in our next blog post.</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/scrapy/">scrapy</a><a class="tag" href="/tags/web-scraping/">web scraping</a><a class="tag" href="/tags/web-crawling/">web crawling</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>
