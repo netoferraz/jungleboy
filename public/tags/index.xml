@@ -6,7 +6,43 @@
     <description>Recent content in Tags on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 18 Jan 2022 19:24:43 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Mar 2022 15:01:19 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>data science</title>
+      <link>https://jungleboy.netlify.app/tags/data-science/</link>
+      <pubDate>Sun, 20 Mar 2022 15:01:19 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>machine learning</title>
+      <link>https://jungleboy.netlify.app/tags/machine-learning/</link>
+      <pubDate>Sun, 20 Mar 2022 15:01:19 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>open source</title>
+      <link>https://jungleboy.netlify.app/tags/open-source/</link>
+      <pubDate>Sun, 20 Mar 2022 15:01:19 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/open-source/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pycaret</title>
+      <link>https://jungleboy.netlify.app/tags/pycaret/</link>
+      <pubDate>Sun, 20 Mar 2022 15:01:19 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/pycaret/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>scrapy</title>
       <link>https://jungleboy.netlify.app/tags/scrapy/</link>
@@ -76,15 +112,6 @@
       <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/locust/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>machine learning</title>
-      <link>https://jungleboy.netlify.app/tags/machine-learning/</link>
-      <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>
-      
-      <guid>https://jungleboy.netlify.app/tags/machine-learning/</guid>
       <description></description>
     </item>
     

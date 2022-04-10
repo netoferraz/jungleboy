@@ -2,19 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jungleboy.netlify.app/tags/data-science/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/machine-learning/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/pycaret_contrib/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/open-source/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/pycaret/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+  </url><url>
     <loc>https://jungleboy.netlify.app/posts/customizing-images-filenames/</loc>
     <lastmod>2022-01-18T19:24:43-03:00</lastmod>
   </url><url>
-    <loc>https://jungleboy.netlify.app/</loc>
-    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/posts/</loc>
-    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
-  </url><url>
     <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
-    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
     <lastmod>2022-01-18T19:24:43-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/web-crawling/</loc>
@@ -42,9 +57,6 @@
     <lastmod>2021-08-07T19:09:49-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/locust/</loc>
-    <lastmod>2021-08-07T19:09:49-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/machine-learning/</loc>
     <lastmod>2021-08-07T19:09:49-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/mlops/</loc>
