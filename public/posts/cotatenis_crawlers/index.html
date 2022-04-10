@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" data-theme=""><head>
-    <title> José Ferraz Neto | scrapy </title>
+    <title> José Ferraz Neto | Sneakers Web Crawlers </title>
 
     
     <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -33,10 +33,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
-    <link rel="canonical" href="/tags/scrapy/">
+    <link rel="canonical" href="/posts/cotatenis_crawlers/">
 
     
-    <link rel="alternate" type="application/rss+xml" href="/tags/scrapy/index.xml" title="jungleboy blog" />
     
     
     
@@ -48,8 +47,8 @@
 
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="scrapy"/>
-<meta name="twitter:description" content="Born in a jungle and living in a world of data."/>
+<meta name="twitter:title" content="Sneakers Web Crawlers"/>
+<meta name="twitter:description" content="📣📣📣 A couple of days ago we released our first contribution to the open-source community from the cotatenis project."/>
 
 
     
@@ -113,71 +112,52 @@
 
     <div class="autopagerize_page_element">
         <div class="content">
-    <div class="archive  animated fadeInDown ">
-        <ul class="list-with-title">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
             
-                <div class="listing-title">2022</div>
+            <div class="post-title">
+                <h3>Sneakers Web Crawlers</h3>
                 
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/cotatenis_crawlers/" title="Sneakers Web Crawlers">Sneakers Web Crawlers</a>
-                                <div class="post-time"><span class="date"> Mar 27 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
+            </div>
+
+            <p>📣📣📣 A couple of days ago we released our first contribution to the open-source community from the <strong>cotatenis</strong> project. It&rsquo;s was a collection of sneakers images as a <a href="https://www.kaggle.com/datasets/ferraz/cotatenis-sneakers">Kaggle dataset</a>.</p>
+<p>🕸️ 🕸️🕸️ And today I&rsquo;m thrilled to announce that we&rsquo;ve decided to release 17 code repositories that were the ingestion layer of the cotatenis project.</p>
+<p>These projects were a collection of web crawlers who were in charge of collecting data through a series of stores and websites and dump into our data lake.</p>
+<ul>
+<li>artwalk (<a href="https://github.com/cotatenis/artwalk">https://github.com/cotatenis/artwalk</a>)</li>
+<li>authenticfeet (<a href="https://github.com/cotatenis/authenticfeet">https://github.com/cotatenis/authenticfeet</a>)</li>
+<li>dafiti (<a href="https://github.com/cotatenis/dafiti">https://github.com/cotatenis/dafiti</a>)</li>
+<li>farfetch (<a href="https://github.com/cotatenis/farfetch">https://github.com/cotatenis/farfetch</a>)</li>
+<li>gdlp (<a href="https://github.com/cotatenis/gdlp">https://github.com/cotatenis/gdlp</a>)</li>
+<li>goat (<a href="https://github.com/cotatenis/goat">https://github.com/cotatenis/goat</a>)</li>
+<li>kanui (<a href="https://github.com/cotatenis/kanui">https://github.com/cotatenis/kanui</a>)</li>
+<li>kings (<a href="https://github.com/cotatenis/kings">https://github.com/cotatenis/kings</a>)</li>
+<li>maze (<a href="https://github.com/cotatenis/maze">https://github.com/cotatenis/maze</a>)</li>
+<li>centauro (<a href="https://github.com/cotatenis/centauro">https://github.com/cotatenis/centauro</a>)</li>
+<li>newbalance (<a href="https://github.com/cotatenis/newbalance">https://github.com/cotatenis/newbalance</a>)</li>
+<li>pineapple (<a href="https://github.com/cotatenis/pineapple">https://github.com/cotatenis/pineapple</a>)</li>
+<li>shop2gether (<a href="https://github.com/cotatenis/shop2gether">https://github.com/cotatenis/shop2gether</a>)</li>
+<li>sneakers123 (<a href="https://github.com/cotatenis/sneakers123">https://github.com/cotatenis/sneakers123</a>)</li>
+<li>solecollector (<a href="https://github.com/cotatenis/solecollector">https://github.com/cotatenis/solecollector</a>)</li>
+<li>yourid (<a href="https://github.com/cotatenis/yourid">https://github.com/cotatenis/yourid</a>)</li>
+</ul>
+<p>😲 That&rsquo;s a lot of code, isn&rsquo;t it? All of that code is organized and scheduled by Airflow. Each one of these stores/sites was organized as DAGs. So we do some health checks to ensure that our spiders will encounter those targets in a way that we expected to perform to make the data collection successfully.</p>
+<p>To encapsulate this logic we have a code that is in charge of that. It runs before each data gathering process inside of our DAGs.</p>
+<ul>
+<li>crawl_validators (<a href="https://github.com/cotatenis/crawl_validators">https://github.com/cotatenis/crawl_validators</a>)</li>
+</ul>
+<p>I&rsquo;m very excited 🤩 to hear from you guys about what you think about that launch and hope you enjoy it!</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
                 
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/customizing-images-filenames/" title="Customizing images filenames when using ImagesPipeline">Customizing images filenames when using ImagesPipeline</a>
-                                <div class="post-time"><span class="date"> Jan 18 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/reducing-google-storage-billing/" title="Some actions to reduce storage billing nearly 80% at GCS">Some actions to reduce storage billing nearly 80% at GCS</a>
-                                <div class="post-time"><span class="date"> Jan 9 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-                <div class="listing-title">2021</div>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/serverless-scrapy/" title="Serverless Web Scraping">Serverless Web Scraping</a>
-                                <div class="post-time"><span class="date"> Jun 11 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/messaging-scrapy-pipeline/" title="A message Producer for Scrapy Pipeline">A message Producer for Scrapy Pipeline</a>
-                                <div class="post-time"><span class="date"> May 27 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-                    <ul class="listing">
-                        <div class="listing-item">
-                            <div class="listing-post"><a href="/posts/analyzing-pipelines-performance/" title="Analyzing Pipelines Performance">Analyzing Pipelines Performance</a>
-                                <div class="post-time"><span class="date"> May 15 
-                                                                            </span></div>
-                            </div>
-                        </div>
-                    </ul>
-                
-            
-        </ul>
+                <span class="separator"><a class="tag" href="/tags/sneakers/">sneakers</a><a class="tag" href="/tags/cotatenis/">cotatenis</a><a class="tag" href="/tags/web-scraping/">web scraping</a><a class="tag" href="/tags/scrapy/">scrapy</a></span>
+            </div>
+        </div>
+
+        
     </div>
+
 
         </div>
     </div>

@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Image dataset about sneakers</title>
+      <link>https://jungleboy.netlify.app/posts/sneakers_image_dataset/</link>
+      <pubDate>Tue, 15 Mar 2022 18:39:01 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/sneakers_image_dataset/</guid>
+      <description>Last year I&amp;rsquo;ve joined in an incredible journey to build a search engine for the best prices for sneakers in the Brazilian market along with my colleagues Marcel Melo and João Paulo Magalhães.</description>
+    </item>
+    
+    <item>
       <title>Load testing a machine learning model</title>
       <link>https://jungleboy.netlify.app/posts/ml_loadtest/</link>
       <pubDate>Sat, 07 Aug 2021 19:09:49 -0300</pubDate>

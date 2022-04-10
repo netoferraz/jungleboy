@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dataset on jungleboy blog</title>
+    <link>https://jungleboy.netlify.app/tags/dataset/</link>
+    <description>Recent content in dataset on jungleboy blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 15 Mar 2022 18:39:01 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/dataset/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Image dataset about sneakers</title>
+      <link>https://jungleboy.netlify.app/posts/sneakers_image_dataset/</link>
+      <pubDate>Tue, 15 Mar 2022 18:39:01 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/sneakers_image_dataset/</guid>
+      <description>Last year I&amp;rsquo;ve joined in an incredible journey to build a search engine for the best prices for sneakers in the Brazilian market along with my colleagues Marcel Melo and João Paulo Magalhães.</description>
+    </item>
+    
+  </channel>
+</rss>

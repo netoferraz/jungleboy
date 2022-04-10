@@ -2,10 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://jungleboy.netlify.app/tags/data-science/</loc>
-    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+    <loc>https://jungleboy.netlify.app/tags/cotatenis/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/sneakers/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/cotatenis_crawlers/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/web-scraping/</loc>
+    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/data-science/</loc>
     <lastmod>2022-03-20T15:01:19-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/machine-learning/</loc>
@@ -17,25 +38,25 @@
     <loc>https://jungleboy.netlify.app/tags/open-source/</loc>
     <lastmod>2022-03-20T15:01:19-03:00</lastmod>
   </url><url>
-    <loc>https://jungleboy.netlify.app/posts/</loc>
-    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
-  </url><url>
     <loc>https://jungleboy.netlify.app/tags/pycaret/</loc>
     <lastmod>2022-03-20T15:01:19-03:00</lastmod>
   </url><url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
-    <lastmod>2022-03-20T15:01:19-03:00</lastmod>
+    <loc>https://jungleboy.netlify.app/tags/computer-vision/</loc>
+    <lastmod>2022-03-15T18:39:01-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/dataset/</loc>
+    <lastmod>2022-03-15T18:39:01-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/sneakers_image_dataset/</loc>
+    <lastmod>2022-03-15T18:39:01-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/kaggle/</loc>
+    <lastmod>2022-03-15T18:39:01-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/posts/customizing-images-filenames/</loc>
     <lastmod>2022-01-18T19:24:43-03:00</lastmod>
   </url><url>
-    <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
-    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
-  </url><url>
     <loc>https://jungleboy.netlify.app/tags/web-crawling/</loc>
-    <lastmod>2022-01-18T19:24:43-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/web-scraping/</loc>
     <lastmod>2022-01-18T19:24:43-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/billing/</loc>
