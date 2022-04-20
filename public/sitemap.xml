@@ -2,13 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://jungleboy.netlify.app/tags/cotatenis/</loc>
-    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+    <loc>https://jungleboy.netlify.app/tags/hackerrank/</loc>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/hackerrank_19505-the-company-english/</loc>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/</loc>
-    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/sql/</loc>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-04-20T10:04:27-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/cotatenis/</loc>
     <lastmod>2022-03-27T18:47:22-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/scrapy/</loc>
@@ -18,9 +30,6 @@
     <lastmod>2022-03-27T18:47:22-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/posts/cotatenis_crawlers/</loc>
-    <lastmod>2022-03-27T18:47:22-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
     <lastmod>2022-03-27T18:47:22-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/tags/web-scraping/</loc>
