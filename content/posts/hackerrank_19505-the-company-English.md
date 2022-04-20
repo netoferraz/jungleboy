@@ -1,11 +1,14 @@
 ---
-title: "Hackerrank #19505 - The Company English"
+title: "HackerRank #1"
 date: 2022-04-20T10:04:27-03:00
 draft: false
 tags: [hackerrank, sql]
 ---
 
 This is my first post on a series in which I'll share my solutions to several HackerRank exercises. For this first exercise, you can read the complete statement [here](https://hackerrank-challenge-pdfs.s3.amazonaws.com/19505-the-company-English?AWSAccessKeyId=AKIAR6O7GJNX5DNFO3PV&Expires=1650460431&Signature=vTAupmzckGiDVuYbpaZnuWKDMxQ%3D&response-content-disposition=inline%3B%20filename%3Dthe-company-English.pdf&response-content-type=application%2Fpdf). That's said I present to you my solution for this problem.
+
+# 1. SQL Server
+
 
 ```sql
 with j_employee as (

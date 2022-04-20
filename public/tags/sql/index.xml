@@ -6,9 +6,18 @@
     <description>Recent content in sql on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Apr 2022 10:04:27 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/sql/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Apr 2022 17:15:46 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/sql/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hackerrank #19505 - The Company English</title>
+      <title>HackerRank SQL #2 and #3</title>
+      <link>https://jungleboy.netlify.app/posts/hackerrank_sql_2_and_3/</link>
+      <pubDate>Wed, 20 Apr 2022 17:15:46 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/posts/hackerrank_sql_2_and_3/</guid>
+      <description>1. Top Competitors 1.1 SQL Server withjoin_tablesas(selectsubmission_id,submissions.hacker_id,name,submissions.challenge_id,submissions.scoreashacker_score,challenges.difficulty_level,difficulty.scoreaschallenge_scorefromsubmissionsinnerjoinchallengesonchallenges.challenge_id=submissions.challenge_idinnerjoindifficultyondifficulty.difficulty_level=challenges.difficulty_levelinnerjoinhackersonhackers.hacker_id=submissions.hacker_id),add_flag_columnas(select*,casewhenhacker_score=challenge_scorethen1else0endasis_full_scorefromjoin_tables),filter_only_full_scoresas(select*fromadd_flag_columnwhereis_full_score=1),count_num_challengesas(selecthacker_id,name,COUNT(*)astotal_num_challengesfromfilter_only_full_scoresgroupbyhacker_id,namehavingCOUNT(*)&amp;gt;=2)selecthacker_id,namefromcount_num_challengesorderbytotal_num_challengesdesc,hacker_idasc2. Weather Observation Station 20 2.</description>
+    </item>
+    
+    <item>
+      <title>HackerRank #1</title>
       <link>https://jungleboy.netlify.app/posts/hackerrank_19505-the-company-english/</link>
       <pubDate>Wed, 20 Apr 2022 10:04:27 -0300</pubDate>
       

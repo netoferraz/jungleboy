@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | HackerRank SQL #2 and #3 </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.bc9c6feb1dc21ca10380089a3cf98f7f0c9229eea1c73bacf720f371960f4d4c.css"
+        integrity="sha256-vJxv6x3CHKEDgAiaPPmPfwySKe6hxzus9yDzcZYPTUw="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/hackerrank_sql_2_and_3/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+            integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ="
+            crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HackerRank SQL #2 and #3"/>
+<meta name="twitter:description" content="1. Top Competitors 1.1 SQL Server withjoin_tablesas(selectsubmission_id,submissions.hacker_id,name,submissions.challenge_id,submissions.scoreashacker_score,challenges.difficulty_level,difficulty.scoreaschallenge_scorefromsubmissionsinnerjoinchallengesonchallenges.challenge_id=submissions.challenge_idinnerjoindifficultyondifficulty.difficulty_level=challenges.difficulty_levelinnerjoinhackersonhackers.hacker_id=submissions.hacker_id),add_flag_columnas(select*,casewhenhacker_score=challenge_scorethen1else0endasis_full_scorefromjoin_tables),filter_only_full_scoresas(select*fromadd_flag_columnwhereis_full_score=1),count_num_challengesas(selecthacker_id,name,COUNT(*)astotal_num_challengesfromfilter_only_full_scoresgroupbyhacker_id,namehavingCOUNT(*)&gt;=2)selecthacker_id,namefromcount_num_challengesorderbytotal_num_challengesdesc,hacker_idasc2. Weather Observation Station 20 2."/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>HackerRank SQL #2 and #3</h3>
+                
+            </div>
+
+            <h3 id="1-top-competitorshttpshackerrank-challenge-pdfss3amazonawscom19599-full-score-englishawsaccesskeyidakiar6o7gjnx5dnfo3pvexpires1650488203signatureqnhirxplgn0nifdff3zf5uumrze3dresponse-content-dispositioninline3b20filename3dfull-score-englishpdfresponse-content-typeapplication2fpdf">1. <a href="https://hackerrank-challenge-pdfs.s3.amazonaws.com/19599-full-score-English?AWSAccessKeyId=AKIAR6O7GJNX5DNFO3PV&amp;Expires=1650488203&amp;Signature=QnhiRxPLGN0NIfdFf3ZF5UUMRzE%3D&amp;response-content-disposition=inline%3B%20filename%3Dfull-score-English.pdf&amp;response-content-type=application%2Fpdf">Top Competitors</a></h3>
+<h4 id="11-sql-server">1.1 SQL Server</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">with</span><span class="w"> </span><span class="n">join_tables</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">select</span><span class="w">
+</span><span class="w">        </span><span class="n">submission_id</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">submissions</span><span class="p">.</span><span class="n">hacker_id</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">submissions</span><span class="p">.</span><span class="n">challenge_id</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">submissions</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">hacker_score</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">challenges</span><span class="p">.</span><span class="n">difficulty_level</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">difficulty</span><span class="p">.</span><span class="n">score</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">challenge_score</span><span class="w">
+</span><span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">submissions</span><span class="w">
+</span><span class="w">    </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">challenges</span><span class="w">
+</span><span class="w">        </span><span class="k">on</span><span class="w"> </span><span class="n">challenges</span><span class="p">.</span><span class="n">challenge_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">submissions</span><span class="p">.</span><span class="n">challenge_id</span><span class="w">
+</span><span class="w">    </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">difficulty</span><span class="w">
+</span><span class="w">        </span><span class="k">on</span><span class="w"> </span><span class="n">difficulty</span><span class="p">.</span><span class="n">difficulty_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">challenges</span><span class="p">.</span><span class="n">difficulty_level</span><span class="w">
+</span><span class="w">    </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">hackers</span><span class="w">
+</span><span class="w">        </span><span class="k">on</span><span class="w"> </span><span class="n">hackers</span><span class="p">.</span><span class="n">hacker_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">submissions</span><span class="p">.</span><span class="n">hacker_id</span><span class="w">
+</span><span class="w"></span><span class="p">),</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">add_flag_column</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">select</span><span class="w">
+</span><span class="w">        </span><span class="o">*</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="k">case</span><span class="w">
+</span><span class="w">            </span><span class="k">when</span><span class="w"> </span><span class="n">hacker_score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">challenge_score</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">is_full_score</span><span class="w">
+</span><span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">join_tables</span><span class="w">
+</span><span class="w"></span><span class="p">),</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">filter_only_full_scores</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">add_flag_column</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">is_full_score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="p">),</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">count_num_challenges</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">select</span><span class="w">
+</span><span class="w">        </span><span class="n">hacker_id</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">name</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_num_challenges</span><span class="w">
+</span><span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">filter_only_full_scores</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">hacker_id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">having</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">select</span><span class="w">
+</span><span class="w">    </span><span class="n">hacker_id</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">name</span><span class="w">
+</span><span class="w"></span><span class="k">from</span><span class="w"> </span><span class="n">count_num_challenges</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">total_num_challenges</span><span class="w"> </span><span class="k">desc</span><span class="p">,</span><span class="w"> </span><span class="n">hacker_id</span><span class="w"> </span><span class="k">asc</span><span class="w">
+</span></code></pre></div><h3 id="2-weather-observation-station-20httpshackerrank-challenge-pdfss3amazonawscom9355-weather-observation-station-20-englishawsaccesskeyidakiar6o7gjnx5dnfo3pvexpires1650486045signature9fbwduugfzm9v2f2fmrh2megvfspm3dresponse-content-dispositioninline3b20filename3dweather-observation-station-20-englishpdfresponse-content-typeapplication2fpdf">2. <a href="https://hackerrank-challenge-pdfs.s3.amazonaws.com/9355-weather-observation-station-20-English?AWSAccessKeyId=AKIAR6O7GJNX5DNFO3PV&amp;Expires=1650486045&amp;Signature=9FbwDUUGfzM9v%2F%2FMRh2MEgvfSpM%3D&amp;response-content-disposition=inline%3B%20filename%3Dweather-observation-station-20-English.pdf&amp;response-content-type=application%2Fpdf">Weather Observation Station 20</a></h3>
+<h4 id="21-sql-server">2.1 SQL Server</h4>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">CAST</span><span class="p">(</span><span class="n">PERCENTILE_CONT</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="n">WITHIN</span><span class="w"> </span><span class="k">GROUP</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">LAT_N</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">MEDIAN</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">STATION</span><span class="w">
+</span></code></pre></div></div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/hackerrank/">hackerrank</a><a class="tag" href="/tags/sql/">sql</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>
