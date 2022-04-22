@@ -6,22 +6,40 @@
     <description>Recent content in Tags on jungleboy blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Apr 2022 17:15:46 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 22 Apr 2022 09:06:26 -0300</lastBuildDate><atom:link href="https://jungleboy.netlify.app/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>hackerrank</title>
-      <link>https://jungleboy.netlify.app/tags/hackerrank/</link>
-      <pubDate>Wed, 20 Apr 2022 17:15:46 -0300</pubDate>
+      <title>linter</title>
+      <link>https://jungleboy.netlify.app/tags/linter/</link>
+      <pubDate>Fri, 22 Apr 2022 09:06:26 -0300</pubDate>
       
-      <guid>https://jungleboy.netlify.app/tags/hackerrank/</guid>
+      <guid>https://jungleboy.netlify.app/tags/linter/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sql</title>
       <link>https://jungleboy.netlify.app/tags/sql/</link>
-      <pubDate>Wed, 20 Apr 2022 17:15:46 -0300</pubDate>
+      <pubDate>Fri, 22 Apr 2022 09:06:26 -0300</pubDate>
       
       <guid>https://jungleboy.netlify.app/tags/sql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sqlfluff</title>
+      <link>https://jungleboy.netlify.app/tags/sqlfluff/</link>
+      <pubDate>Fri, 22 Apr 2022 09:06:26 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/sqlfluff/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hackerrank</title>
+      <link>https://jungleboy.netlify.app/tags/hackerrank/</link>
+      <pubDate>Wed, 20 Apr 2022 17:15:46 -0300</pubDate>
+      
+      <guid>https://jungleboy.netlify.app/tags/hackerrank/</guid>
       <description></description>
     </item>
     

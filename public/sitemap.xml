@@ -2,22 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jungleboy.netlify.app/posts/sql_fluff_setup/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/linter/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/posts/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/sql/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/sqlfluff/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
+    <loc>https://jungleboy.netlify.app/tags/</loc>
+    <lastmod>2022-04-22T09:06:26-03:00</lastmod>
+  </url><url>
     <loc>https://jungleboy.netlify.app/tags/hackerrank/</loc>
     <lastmod>2022-04-20T17:15:46-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/posts/hackerrank_sql_2_and_3/</loc>
-    <lastmod>2022-04-20T17:15:46-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/</loc>
-    <lastmod>2022-04-20T17:15:46-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/posts/</loc>
-    <lastmod>2022-04-20T17:15:46-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/sql/</loc>
-    <lastmod>2022-04-20T17:15:46-03:00</lastmod>
-  </url><url>
-    <loc>https://jungleboy.netlify.app/tags/</loc>
     <lastmod>2022-04-20T17:15:46-03:00</lastmod>
   </url><url>
     <loc>https://jungleboy.netlify.app/posts/hackerrank_19505-the-company-english/</loc>

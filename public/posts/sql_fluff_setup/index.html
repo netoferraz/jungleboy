@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html  dir="ltr" lang="en" data-theme=""><head>
+    <title> José Ferraz Neto | 101 SQLFluff </title>
+
+    
+    <meta charset="utf-8"><meta name="generator" content="Hugo 0.83.1" /><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Born in a jungle and living in a world of data.">
+    
+    
+    
+    
+    <link rel="stylesheet"
+        href="/css/main.min.bc9c6feb1dc21ca10380089a3cf98f7f0c9229eea1c73bacf720f371960f4d4c.css"
+        integrity="sha256-vJxv6x3CHKEDgAiaPPmPfwySKe6hxzus9yDzcZYPTUw="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    
+    <link rel="stylesheet"
+        href="/css/markupHighlight.min.f798cbda9aaa38f89eb38be6414bd082cfd71a6780375cbf67b6d2fb2b96491e.css"
+        integrity="sha256-95jL2pqqOPies4vmQUvQgs/XGmeAN1y/Z7bS&#43;yuWSR4="
+        crossorigin="anonymous"
+        type="text/css">
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" 
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" 
+    crossorigin="anonymous" />
+
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+    <link rel="canonical" href="/posts/sql_fluff_setup/">
+
+    
+    
+    
+    
+    <script type="text/javascript"
+            src="/js/anatole-header.min.0c05c0a90d28c968a1cad4fb31abd0b8e1264e788ccefed022ae1d3b6f627514.js"
+            integrity="sha256-DAXAqQ0oyWihytT7MavQuOEmTniMzv7QIq4dO29idRQ="
+            crossorigin="anonymous"></script>
+
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="101 SQLFluff"/>
+<meta name="twitter:description" content="1. Introduction Are you tired of people nitpicking when doing code reviews?"/>
+
+
+    
+
+</head>
+<body><div class="sidebar animated fadeInDown ">
+    <div class="logo-title">
+        <div class="title">
+            <img src="/profile.png" alt="profile picture">
+            <h3 title=""><a href="/">I&#39;m José</a></h3>
+            <div class="description">
+                <p>Born in a jungle and living in a world of data.</p>
+            </div>
+        </div>
+    </div>
+    <ul class="social-links">
+        
+            <li>
+                <a href="https://github.com/netoferraz" rel="me" aria-label="Github">
+                    <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://twitter.com/zeneto" rel="me" aria-label="Twitter">
+                    <i class="fab fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="https://www.linkedin.com/in/joseferrazneto/" rel="me" aria-label="Linkedin">
+                    <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="mailto:netoferraz@gmail.com" rel="me" aria-label="e-mail">
+                    <i class="fas fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+    </ul>
+    <div class="footer">
+        <div class="by_farbox">&copy; José Ferraz Neto  2022 </div>
+    </div>
+</div>
+<div class="main">
+    <div class="page-top  animated fadeInDown ">
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </a>
+    <ul class="nav" id="navMenu">
+        
+        
+        
+        
+    </ul>
+</div>
+
+    <div class="autopagerize_page_element">
+        <div class="content">
+    <div class="post  animated fadeInDown ">
+        <div class="post-content">
+            
+            <div class="post-title">
+                <h3>101 SQLFluff</h3>
+                
+            </div>
+
+            <h2 id="1-introduction">1. Introduction</h2>
+<p>Are you tired of people nitpicking when doing code reviews? Did your energy drain by those that had written comments in your Pull Request talking about comma positions?</p>
+<p>By the way, this kind of behavior is not healthy at all for you and the organization as well. Instead of that, people should bring to light the logic of the business and try to improve the code base with comments that try to deliver more value, instead to put so much energy inside the aesthetic of the codebase.</p>
+<p>But recently we have seen an open-source project called SQLFluff bring a proposal to make a linter for SQL. The project has almost 4k stars on Github on the day I’m writing this post. As mentioned before there are different flavors of SQL and according to the actual state of the project, these are the dialects supported by the linter.</p>
+<p>The process of reviewing the style guide must be done by the machine, once we have a pattern or a set of rules to guide us. For decades several programming languages took advantage of linters to make this done, otherwise, when we look at the RDBMS ecosystem we see a lot of different flavors of SQL that make some standardization a little harder to achieve.</p>
+<p>But recently we have seen a open source project called <a href="https://github.com/sqlfluff/sqlfluff">SQLFluff</a> bring a proposal to make a linter for SQL. The project has almost 4k stars in Github at the day i&rsquo;m writing this post. As mentioned before there are different flavors of SQL and according to the actual state of the project, these are the dialects supported by the linter.</p>
+<ul>
+<li><code>ANSI SQL</code></li>
+<li><code>BigQuery</code></li>
+<li><code>Exasol</code></li>
+<li><code>Hive</code></li>
+<li><code>MySQL</code></li>
+<li><code>Oracle</code></li>
+<li><code>PostgreSQL</code> (aka Postgres)</li>
+<li><code>Redshift</code></li>
+<li><code>Snowflake</code></li>
+<li><code>SparkSQL</code></li>
+<li><code>SQLite</code></li>
+<li><code>Teradata</code></li>
+<li><code>Transact-SQL</code> (aka T-SQL)</li>
+</ul>
+<p>I&rsquo;ll guide you guys how to setup it and make some basic demonstration of usage.</p>
+<h2 id="2-installation">2. Installation</h2>
+<p><code>SQLFluff</code> is a python project and the easy way of installing is through <a href="https://pypi.org/project/sqlfluff/">PyPi</a>.</p>
+<p>First of all, let&rsquo;s create a directory to host your project.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir sqlfluff_demo
+</code></pre></div><p>As a second step, it&rsquo;s a good practice to create a virtual environment and then activate it.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">python3 -m venv .venv
+<span class="nb">source</span> .venv/bin/activate
+</code></pre></div><p>Once our python environment was created and activated we&rsquo;ll use pip to install SQLFluff.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pip install sqlfluff
+</code></pre></div><p>You can type <code>sqlfluff</code> in you terminal to see which options are available through the CLI.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">Usage: sqlfluff <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+
+  Sqlfluff is a modular sql linter <span class="k">for</span> humans.
+
+Options:
+  --version   Show the version and exit.
+  -h, --help  Show this message and exit.
+
+Commands:
+  dialects  Show the current dialects available.
+  fix       Fix SQL files.
+  lint      Lint SQL files via passing a list of files or using stdin.
+  parse     Parse SQL files and just spit out the result.
+  rules     Show the current rules in use.
+  version   Show the version of sqlfluff.
+</code></pre></div><p>A simple way to check the current version of SQLFluff is typing <code>sqlfluff --version</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sqlfluff, version 0.12.0
+</code></pre></div><p>As you noticed this software hasn&rsquo;t have a stable API because its current release is below 1.0 and the maintainers <a href="https://github.com/sqlfluff/sqlfluff">wrote</a> a statement about it.</p>
+<p>The two major commands that we&rsquo;ll use during our development are: <code>lint</code> and <code>fix</code>. The former analyzes and shows up which <a href="https://docs.sqlfluff.com/en/stable/rules.html">rules</a> our SQL break, while the latter modify our code to make it adherent to those rules.</p>
+<h2 id="3-setup">3. Setup</h2>
+<p>By default, the linter has several default parameters but you can customize them to better fit the desired style code of your organization. You can read <a href="https://docs.sqlfluff.com/en/stable/configuration.html#defaultconfig">here</a> some of the possible customizations you could make.</p>
+<p>Let&rsquo;s create a <code>.sqlfluff</code> file to make little modifications in the default linter behavior to show how this works.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">touch .sqlfluff
+</code></pre></div><p>Let&rsquo;s set as default the dialect <code>snowflake</code>, then exclude <a href="https://docs.sqlfluff.com/en/stable/rules.html#sqlfluff.core.rules.Rule_L027">L027 rule</a> and finally setup that we desire to format our code with leading commas, instead of trailling ones.</p>
+<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">[sqlfluff]
+dialect = snowflake
+exclude_rules = L027
+
+[sqlfluff:rules]
+comma_style = leading
+</code></pre></div><h2 id="4-usage">4. Usage</h2>
+<p>For the purpose of this demo, we&rsquo;re going to use a compiled SQL version of this <a href="https://github.com/cotatenis/dbt_cotatenis/blob/main/models/dev/staging/sneakers/stg_lr_gdlp.sql">dbt model</a>.</p>
+<p>The following SQL code is our start point to format then into a <code>sqlfluff</code> style.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- sample.sql
+</span><span class="c1"></span><span class="k">WITH</span><span class="w"> </span><span class="n">col_format</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w">
+</span><span class="w">        </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">          </span><span class="n">t1</span><span class="p">.</span><span class="n">sku</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">url</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">price</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">product</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">brand</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="k">size</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">in_stock</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">description</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="k">SELECT</span><span class="w">
+</span><span class="w">                 </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">                      </span><span class="n">sku</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productPrice</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">categoryName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">d2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">in_stock</span><span class="p">::</span><span class="nb">boolean</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">                    </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">            </span><span class="k">FROM</span><span class="w"> </span><span class="n">COTATENIS_DEV</span><span class="p">.</span><span class="n">ANALYTICS</span><span class="p">.</span><span class="n">stg_gdlp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">store</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sizes_and_stock</span><span class="p">)</span><span class="w"> </span><span class="n">ss1</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="n">ss2</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss2</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="n">ss3</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">product_info</span><span class="p">)</span><span class="w"> </span><span class="n">prdi_1</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">prdi_1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">parse_json</span><span class="p">(</span><span class="n">description</span><span class="p">))</span><span class="w"> </span><span class="n">d1</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="k">lateral</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="n">d2</span><span class="w">
+</span><span class="w">            </span><span class="k">WHERE</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%CHINELO%&#39;</span><span class="w">
+</span><span class="w">            </span><span class="k">AND</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
+</span><span class="w">      </span><span class="p">)</span><span class="w"> </span><span class="n">t1</span><span class="w">
+</span><span class="w"></span><span class="p">),</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> 
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="k">SELECT</span><span class="w">
+</span><span class="w">          </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">sku</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="n">collected_at</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">col_format</span><span class="w">
+</span><span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">)</span><span class="w"> 
+</span><span class="w"></span><span class="p">)</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> 
+</span><span class="w">      </span><span class="n">SUBSTR</span><span class="p">(</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sku</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">qty_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;GDLP&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">store</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w">
+</span><span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="k">true</span><span class="w">
+</span><span class="w">    </span><span class="n">qualify</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">collected_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></div><p>Let&rsquo;s parse this code with the linter and take a look in the output.</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sqlfluff lint sample.sql
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">== [sample.sql] FAIL
+L:   1 | P:   1 | L050 | Files must not begin with newlines or whitespace.
+L:   3 | P:   5 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:   4 | P:   9 | L003 | Expected 1 indentations, found 2 [compared to line 03]
+L:   5 | P:  11 | L003 | Expected 3 indentations, found 2 [compared to line 03]
+L:  15 | P:  13 | L034 | Select wildcards then simple targets before calculations
+                       | and aggregates.
+L:  15 | P:  13 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:  16 | P:  18 | L003 | Expected 3 indentations, found 4 [compared to line 15]
+L:  17 | P:  23 | L003 | Expected 6 indentations, found 5 [compared to line 15]
+L:  18 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  19 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  19 | P:  64 | L010 | Keywords must be consistently upper case.
+L:  20 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  20 | P:  62 | L010 | Keywords must be consistently upper case.
+L:  21 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  21 | P:  63 | L010 | Keywords must be consistently upper case.
+L:  22 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  22 | P:  46 | L010 | Keywords must be consistently upper case.
+L:  23 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  23 | P:  51 | L010 | Keywords must be consistently upper case.
+L:  24 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  24 | P:  45 | L010 | Keywords must be consistently upper case.
+L:  25 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  26 | P:  18 | L014 | Unquoted identifiers must be consistently lower case.
+L:  26 | P:  32 | L014 | Unquoted identifiers must be consistently lower case.
+L:  26 | P:  51 | L010 | Keywords must be consistently upper case.
+L:  26 | P:  54 | L025 | Alias &#39;store&#39; is never used in SELECT statement.
+L:  26 | P:  54 | L031 | Avoid aliases in from clauses and join conditions.
+L:  26 | P:  59 | L019 | Found trailing comma. Expected only leading.
+L:  27 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  27 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  27 | P:  55 | L011 | Implicit/explicit aliasing of table.
+L:  27 | P:  55 | L025 | Alias &#39;ss1&#39; is never used in SELECT statement.
+L:  27 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  28 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  28 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  28 | P:  49 | L011 | Implicit/explicit aliasing of table.
+L:  28 | P:  49 | L025 | Alias &#39;ss2&#39; is never used in SELECT statement.
+L:  28 | P:  52 | L019 | Found trailing comma. Expected only leading.
+L:  29 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  29 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  29 | P:  49 | L011 | Implicit/explicit aliasing of table.
+L:  29 | P:  52 | L019 | Found trailing comma. Expected only leading.
+L:  30 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  30 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  30 | P:  52 | L011 | Implicit/explicit aliasing of table.
+L:  30 | P:  52 | L025 | Alias &#39;prdi_1&#39; is never used in SELECT statement.
+L:  30 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  31 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  31 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  31 | P:  52 | L011 | Implicit/explicit aliasing of table.
+L:  31 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  32 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  32 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  32 | P:  63 | L011 | Implicit/explicit aliasing of table.
+L:  32 | P:  63 | L025 | Alias &#39;d1&#39; is never used in SELECT statement.
+L:  32 | P:  65 | L019 | Found trailing comma. Expected only leading.
+L:  33 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  33 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  33 | P:  48 | L011 | Implicit/explicit aliasing of table.
+L:  35 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 34]
+L:  35 | P:  32 | L010 | Keywords must be consistently upper case.
+L:  36 | P:   7 | L003 | Expected 2 indentations, found 1 [compared to line 14]
+L:  36 | P:   9 | L011 | Implicit/explicit aliasing of table.
+L:  37 | P:   4 | L022 | Blank line expected but not found after CTE closing
+                       | bracket.
+L:  37 | P:  24 | L010 | Keywords must be consistently upper case.
+L:  38 | P:  13 | L001 | Unnecessary trailing whitespace.
+L:  40 | P:   9 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:  41 | P:  11 | L003 | Expected 2 indentations, found 2 [compared to line 40]
+L:  41 | P:  11 | L021 | Ambiguous use of &#39;DISTINCT&#39; in a &#39;SELECT&#39; statement with
+                       | &#39;GROUP BY&#39;.
+L:  42 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  43 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  44 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  45 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  46 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  47 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  48 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  49 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  49 | P:  11 | L030 | Function names must be consistently lower case.
+L:  49 | P:  29 | L010 | Keywords must be consistently upper case.
+L:  50 | P:   5 | L003 | Expected 2 indentations, found 1 [compared to line 40]
+L:  51 | P:   5 | L003 | Expected 2 indentations, found 1 [compared to line 40]
+L:  52 | P:   6 | L001 | Unnecessary trailing whitespace.
+L:  53 | P:   3 | L022 | Blank line expected but not found after CTE closing
+                       | bracket.
+L:  53 | P:   3 | L034 | Select wildcards then simple targets before calculations
+                       | and aggregates.
+L:  53 | P:   9 | L001 | Unnecessary trailing whitespace.
+L:  54 | P:   7 | L003 | Expected 2 indentations, found 1 [compared to line 53]
+L:  54 | P:   7 | L030 | Function names must be consistently lower case.
+L:  54 | P:  25 | L010 | Keywords must be consistently upper case.
+L:  62 | P:  10 | L010 | Keywords must be consistently upper case.
+L:  64 | P:  14 | L010 | Keywords must be consistently upper case.
+L:  65 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  66 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  66 | P:   5 | L010 | Keywords must be consistently upper case.
+L:  67 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  67 | P:   5 | L010 | Keywords must be consistently upper case.
+L:  67 | P:  13 | L030 | Function names must be consistently lower case.
+L:  67 | P:  85 | L009 | Files must end with a single trailing newline.
+All Finished!
+</code></pre></div><p>😲 we&rsquo;ve got more than 100 warnings!</p>
+<p>The next step is to resort with the <code>fix</code> command to try to resolve these inconsistencies. This option has the default behavior of opening a prompt asking the programmer if you are certain to do these modifications in your code. If you want to skip this prompt we could add a flag <code>-f</code> to the command.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sqlfluff fix -f sample.sql
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">==== finding fixable violations ====
+== [sample.sql] FAIL                                                                                                        
+L:   1 | P:   1 | L050 | Files must not begin with newlines or whitespace.                                                  
+L:   3 | P:   5 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:   4 | P:   9 | L003 | Expected 1 indentations, found 2 [compared to line 03]
+L:   5 | P:  11 | L003 | Expected 3 indentations, found 2 [compared to line 03]
+L:  15 | P:  13 | L034 | Select wildcards then simple targets before calculations
+                       | and aggregates.
+L:  15 | P:  13 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:  16 | P:  18 | L003 | Expected 3 indentations, found 4 [compared to line 15]
+L:  17 | P:  23 | L003 | Expected 6 indentations, found 5 [compared to line 15]
+L:  18 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  19 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  19 | P:  64 | L010 | Keywords must be consistently upper case.
+L:  20 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  20 | P:  62 | L010 | Keywords must be consistently upper case.
+L:  21 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  21 | P:  63 | L010 | Keywords must be consistently upper case.
+L:  22 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  22 | P:  46 | L010 | Keywords must be consistently upper case.
+L:  23 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  23 | P:  51 | L010 | Keywords must be consistently upper case.
+L:  24 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  24 | P:  45 | L010 | Keywords must be consistently upper case.
+L:  25 | P:  21 | L003 | Expected 3 indentations, found 5 [compared to line 15]
+L:  26 | P:  18 | L014 | Unquoted identifiers must be consistently lower case.
+L:  26 | P:  32 | L014 | Unquoted identifiers must be consistently lower case.
+L:  26 | P:  51 | L010 | Keywords must be consistently upper case.
+L:  26 | P:  54 | L025 | Alias &#39;store&#39; is never used in SELECT statement.
+L:  26 | P:  59 | L019 | Found trailing comma. Expected only leading.
+L:  27 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  27 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  27 | P:  55 | L011 | Implicit/explicit aliasing of table.
+L:  27 | P:  55 | L025 | Alias &#39;ss1&#39; is never used in SELECT statement.
+L:  27 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  28 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  28 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  28 | P:  49 | L011 | Implicit/explicit aliasing of table.
+L:  28 | P:  49 | L025 | Alias &#39;ss2&#39; is never used in SELECT statement.
+L:  28 | P:  52 | L019 | Found trailing comma. Expected only leading.
+L:  29 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  29 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  29 | P:  49 | L011 | Implicit/explicit aliasing of table.
+L:  29 | P:  52 | L019 | Found trailing comma. Expected only leading.
+L:  30 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  30 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  30 | P:  52 | L011 | Implicit/explicit aliasing of table.
+L:  30 | P:  52 | L025 | Alias &#39;prdi_1&#39; is never used in SELECT statement.
+L:  30 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  31 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  31 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  31 | P:  52 | L011 | Implicit/explicit aliasing of table.
+L:  31 | P:  58 | L019 | Found trailing comma. Expected only leading.
+L:  32 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  32 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  32 | P:  63 | L011 | Implicit/explicit aliasing of table.
+L:  32 | P:  63 | L025 | Alias &#39;d1&#39; is never used in SELECT statement.
+L:  32 | P:  65 | L019 | Found trailing comma. Expected only leading.
+L:  33 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 26]
+L:  33 | P:  13 | L010 | Keywords must be consistently upper case.
+L:  33 | P:  48 | L011 | Implicit/explicit aliasing of table.
+L:  35 | P:  13 | L003 | Expected 4 indentations, found 3 [compared to line 34]
+L:  35 | P:  32 | L010 | Keywords must be consistently upper case.
+L:  36 | P:   7 | L003 | Expected 2 indentations, found 1 [compared to line 14]
+L:  36 | P:   9 | L011 | Implicit/explicit aliasing of table.
+L:  37 | P:   4 | L022 | Blank line expected but not found after CTE closing
+                       | bracket.
+L:  37 | P:  24 | L010 | Keywords must be consistently upper case.
+L:  38 | P:  13 | L001 | Unnecessary trailing whitespace.
+L:  40 | P:   9 | L041 | &#39;SELECT&#39; modifiers (e.g. &#39;DISTINCT&#39;) must be on the same
+                       | line as &#39;SELECT&#39;.
+L:  41 | P:  11 | L003 | Expected 2 indentations, found 2 [compared to line 40]
+L:  42 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  42 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  43 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  43 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  44 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  44 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  45 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  45 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  46 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  46 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  47 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  47 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  48 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  48 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  49 | P:   9 | L003 | Expected 3 indentations, found 2 [compared to line 40]
+L:  49 | P:   9 | L005 | Commas should not have whitespace directly before them.
+L:  49 | P:  11 | L030 | Function names must be consistently lower case.
+L:  49 | P:  29 | L010 | Keywords must be consistently upper case.
+L:  50 | P:   5 | L003 | Expected 2 indentations, found 1 [compared to line 40]
+L:  51 | P:   5 | L003 | Expected 2 indentations, found 1 [compared to line 40]
+L:  52 | P:   6 | L001 | Unnecessary trailing whitespace.
+L:  53 | P:   3 | L022 | Blank line expected but not found after CTE closing
+                       | bracket.
+L:  53 | P:   3 | L034 | Select wildcards then simple targets before calculations
+                       | and aggregates.
+L:  53 | P:   9 | L001 | Unnecessary trailing whitespace.
+L:  54 | P:   7 | L003 | Expected 2 indentations, found 1 [compared to line 53]
+L:  54 | P:   7 | L030 | Function names must be consistently lower case.
+L:  54 | P:  25 | L010 | Keywords must be consistently upper case.
+L:  62 | P:  10 | L010 | Keywords must be consistently upper case.
+L:  64 | P:  14 | L010 | Keywords must be consistently upper case.
+L:  65 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  66 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  66 | P:   5 | L010 | Keywords must be consistently upper case.
+L:  67 | P:   5 | L003 | Expected 0 indentations, found 1 [compared to line 53]
+L:  67 | P:   5 | L010 | Keywords must be consistently upper case.
+L:  67 | P:  13 | L030 | Function names must be consistently lower case.
+L:  67 | P:  85 | L009 | Files must end with a single trailing newline.
+==== fixing violations ====
+103 fixable linting violations found
+FORCE MODE: Attempting fixes...
+Persisting Changes...
+== [sample.sql] PASS
+Done. Please check your files to confirm.
+  [1 unfixable linting violations found]
+</code></pre></div><p>Then we can sneak peek at our code to evaluate the changes that linter has done.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="c1">-- sample.sql
+</span><span class="c1"></span><span class="k">WITH</span><span class="w"> </span><span class="n">col_format</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">        </span><span class="n">t1</span><span class="p">.</span><span class="n">sku</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">url</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">price</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">product</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">brand</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="k">size</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">in_stock</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">description</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">                </span><span class="n">sku</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productPrice</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">categoryName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">d2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">in_stock</span><span class="p">::</span><span class="nb">boolean</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">            </span><span class="k">FROM</span><span class="w"> </span><span class="n">cotatenis_dev</span><span class="p">.</span><span class="n">analytics</span><span class="p">.</span><span class="n">stg_gdlp</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sizes_and_stock</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss2</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ss3</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">product_info</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">prdi_1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prdi_2</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">parse_json</span><span class="p">(</span><span class="n">description</span><span class="p">))</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w">  </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">d2</span><span class="w">
+</span><span class="w">            </span><span class="k">WHERE</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%CHINELO%&#39;</span><span class="w">
+</span><span class="w">                </span><span class="k">AND</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
+</span><span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t1</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="p">,</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">            </span><span class="n">sku</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">collected_at</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">col_format</span><span class="w">
+</span><span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w">
+</span><span class="w">    </span><span class="n">url</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;GDLP&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">store</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sku</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">qty_stock</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">true</span><span class="w">
+</span><span class="w"></span><span class="n">QUALIFY</span><span class="w"> </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">collected_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></div><p>Once our code was modified we can run the linter again to check out the result.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sqlfluff lint sample.sql
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">== [sample.sql] FAIL
+L:  24 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  24 | P:  14 | L039 | Unnecessary whitespace found.
+L:  25 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  25 | P:  14 | L039 | Unnecessary whitespace found.
+L:  26 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  26 | P:  14 | L039 | Unnecessary whitespace found.
+L:  27 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  27 | P:  14 | L039 | Unnecessary whitespace found.
+L:  28 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  28 | P:  14 | L039 | Unnecessary whitespace found.
+L:  29 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  29 | P:  14 | L039 | Unnecessary whitespace found.
+L:  30 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  30 | P:  14 | L039 | Unnecessary whitespace found.
+L:  39 | P:  16 | L021 | Ambiguous use of &#39;DISTINCT&#39; in a &#39;SELECT&#39; statement with
+                       | &#39;GROUP BY&#39;.
+All Finished!
+</code></pre></div><p>We&rsquo;ve reduced our warnings from a hundred to a couple of units 😀. Most of them are regarding are about whitespaces and commas (<a href="https://docs.sqlfluff.com/en/stable/rules.html#sqlfluff.core.rules.Rule_L008">L008</a> and <a href="https://docs.sqlfluff.com/en/stable/rules.html#sqlfluff.core.rules.Rule_L039">L039</a>).</p>
+<p>Furthermore was detected a violation about the rule <a href="https://docs.sqlfluff.com/en/stable/rules.html#sqlfluff.core.rules.Rule_L021">L021</a>. One the coolest thing about that rules documentation is that it can be thought as a collection of anti-pattern for SQL Code. Each one of them has some examples of anti-patterns and best practices to follow. The following figure shows an example for the rule <code>L021</code>.</p>
+<p><img src="/sqlfluff_intro/sqlfluff_RL021.png" alt="sqlfluff_rule_l021"></p>
+<p>Our next step is to get rid of the DISTINCT clause from line 39 and to run again the <code>fix</code> command.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sqlfluff fix -f sample.sql
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">==== finding fixable violations ====
+== [sample.sql] FAIL
+L:  24 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  25 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  26 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  27 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  28 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  29 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+L:  30 | P:  14 | L008 | Commas should be followed by a single whitespace unless
+                       | followed by a comment.
+==== fixing violations ====
+7 fixable linting violations found
+FORCE MODE: Attempting fixes...
+Persisting Changes...
+== [sample.sql] PASS
+Done. Please check your files to confirm.
+  [1 unfixable linting violations found]
+</code></pre></div><p>Unfortunately, it remains a couple of warnings regarding the rule L008 and the linter printed out an important message at the end: [1 unfixable linting violations found]. A final workaround is to manually edit to insert only one space after the commas through lines 24 to 30. As a final check, we must run the <code>lint</code> command to guarantee that our code meets the specification.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sqlfluff lint sample.sql                                
+&gt; All Finished 📜 🎉!    
+</code></pre></div><p>👌 Well done! We&rsquo;ve achieved a code style that doesn&rsquo;t generate any warning against the linter specification. Then we can take a look at our code.</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">WITH</span><span class="w"> </span><span class="n">col_format</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">        </span><span class="n">t1</span><span class="p">.</span><span class="n">sku</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">url</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">price</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">product</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">brand</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="k">size</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">in_stock</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">description</span><span class="w">
+</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w">
+</span><span class="w">                </span><span class="n">sku</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productPrice</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">categoryName</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">d2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">::</span><span class="nb">text</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">in_stock</span><span class="p">::</span><span class="nb">boolean</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">                </span><span class="p">,</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="p">::</span><span class="nb">float</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">            </span><span class="k">FROM</span><span class="w"> </span><span class="n">cotatenis_dev</span><span class="p">.</span><span class="n">analytics</span><span class="p">.</span><span class="n">stg_gdlp</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">sizes_and_stock</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">ss2</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ss3</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">product_info</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">prdi_1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">prdi_2</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">parse_json</span><span class="p">(</span><span class="n">description</span><span class="p">))</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">LATERAL</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">d1</span><span class="p">.</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">d2</span><span class="w">
+</span><span class="w">            </span><span class="k">WHERE</span><span class="w"> </span><span class="n">prdi_2</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="n">element</span><span class="p">:</span><span class="n">productName</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%CHINELO%&#39;</span><span class="w">
+</span><span class="w">                </span><span class="k">AND</span><span class="w"> </span><span class="n">ss3</span><span class="p">.</span><span class="n">value</span><span class="p">:</span><span class="k">size</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w">
+</span><span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t1</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="p">,</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="k">SELECT</span><span class="w">
+</span><span class="w">            </span><span class="n">sku</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">            </span><span class="p">,</span><span class="w"> </span><span class="k">max</span><span class="p">(</span><span class="n">collected_at</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="n">col_format</span><span class="w">
+</span><span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w">
+</span><span class="w">    </span><span class="n">url</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">price</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">product</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">collected_at</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">brand</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">in_stock</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;GDLP&#39;</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">store</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="n">substr</span><span class="p">(</span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sku</span><span class="w">
+</span><span class="w">    </span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">qty_stock</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">most_recent_records</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="k">true</span><span class="w">
+</span><span class="w"></span><span class="n">QUALIFY</span><span class="w"> </span><span class="n">row_number</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sku</span><span class="p">,</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">collected_at</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></div><p>For today that&rsquo;s all folks 🤟! I hope that you&rsquo;ve enjoyed so far and I&rsquo;ll try to bring in my next post a configuration for sqlfluff working together with <a href="https://pre-commit.com/">pre-commit</a> to work with this linter with a better flow and better automated.</p>
+</div>
+        <div class="post-footer">
+            <div class="info">
+                
+                <span class="separator"><a class="tag" href="/tags/sql/">sql</a><a class="tag" href="/tags/sqlfluff/">sqlfluff</a><a class="tag" href="/tags/linter/">linter</a></span>
+            </div>
+        </div>
+
+        
+    </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript"
+        src="/js/medium-zoom.min.83cb1dd5fea8d42d87d1e601a07faa73089ad0ef9ccfe5daf6041289ebcc4e46.js"
+        integrity="sha256-g8sd1f6o1C2H0eYBoH&#43;qcwia0O&#43;cz&#43;Xa9gQSievMTkY="
+        crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ET97GCNPG"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ET97GCNPG');
+</script></body>
+
+</html>
